@@ -57,9 +57,9 @@ public class PatientDAOImpl implements PatientDAO{
 
 	public ArrayList<Patient> getAllPatients() {
 		Session session = sessionFactory.openSession();
-		Transaction tx =  session.beginTransaction();
+		Transaction tx = session.beginTransaction();
 		@SuppressWarnings("unchecked")
-		List <Patient> patients = session.createQuery("select p from Patient p").list();
+		List<Patient> patients = session.createQuery("select p from Patient p").list();
 		tx.commit();
 		return (ArrayList<Patient>) patients;
 	}

@@ -43,6 +43,8 @@ public class Staff {
 		this.workdays = workdays;
 		this.consultations = consultations;
 	}
+	public Staff() {
+	}
 	public Set<Consultation> getConsultations() {
 		return consultations;
 	}
