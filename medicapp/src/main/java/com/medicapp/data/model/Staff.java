@@ -1,4 +1,4 @@
-package com.medicapp.data;
+package com.medicapp.data.model;
 
 import java.util.Set;
 

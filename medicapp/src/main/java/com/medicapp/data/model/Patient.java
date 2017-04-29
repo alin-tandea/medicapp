@@ -1,4 +1,4 @@
-package com.medicapp.data;
+package com.medicapp.data.model;
 
 import java.util.Date;
 import java.util.Set;
@@ -45,6 +45,11 @@ public class Patient {
 		this.address = address;
 		this.consultations = consultations;
 	}
+
+	public Patient() {
+		// TODO Auto-generated constructor stub
+	}
+
 
 	public Set<Consultation> getConsultations() {
 		return consultations;
