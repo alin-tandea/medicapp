@@ -10,7 +10,7 @@ public interface PatientDAO {
 	void updatePatient(int idpatient , String name , String idcardNumber , String cnp , Date birthdate , String address);
 	ArrayList<Patient> getAllPatients();
 	ArrayList<Patient> searchPatientByName(String name);
-	ArrayList<Patient> searchPatientByCnp(String name);
+	ArrayList<Patient> searchPatientByCnp(String cnp);
 	Patient getPatient(int idpatient);
 	
 }
