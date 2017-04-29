@@ -1,5 +1,6 @@
 package com.medicapp.data.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -28,7 +29,7 @@ public class Staff {
 	private String workdays;
 
 	@OneToMany(fetch = FetchType.LAZY , mappedBy = "staff")
-	private Set<Consultation> consultations;
+	private Set<Consultation> consultations =  new HashSet<Consultation>(0);
 	
 	
 	

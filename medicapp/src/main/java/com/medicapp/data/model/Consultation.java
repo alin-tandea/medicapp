@@ -22,12 +22,12 @@ public class Consultation {
 	@Column(name = "reason")
 	private String reason;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idpatient" , nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "patient_idpatient", nullable = false)
 	private Patient patient;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idstaff")
+	@JoinColumn(name = "staff_idstaff", nullable = false)
 	private Staff staff;
 
 	
@@ -40,6 +40,10 @@ public class Consultation {
 		this.reason = reason;
 		this.patient = patient;
 		this.staff = staff;
+	}
+
+	public Consultation() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Staff getStaff() {
