@@ -1,8 +1,9 @@
 import {Component , OnInit} from '@angular/core';
-
+import {MaterializeDirective} from "angular2-materialize";
 
 import { PatientService } from "./patient.service"
 import { Patient } from './patient'
+
 
 @Component({
     selector : 'patient-comp',

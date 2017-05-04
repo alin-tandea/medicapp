@@ -81,7 +81,7 @@ export class PatientFormComponent implements OnInit{
         }
         result.subscribe(
             (data) => {
-                this._router.navigate(['patients#patients'])
+                this._router.navigate(['patients'])
             },
             (err) => {
                 alert("A patient with that CNP or ID Card Number is already registered ")

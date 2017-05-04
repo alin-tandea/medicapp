@@ -4,12 +4,12 @@
 <div class="row">
       <div class="col s12">
         <ul class="tabs" materialize="tabs" >
-          <li class="tab col s3"><a class="active" href="patients#patients">Patients</a></li>
-          <li class="tab col s3"><a href="patients#consultations">Consultations</a></li>
-          
+          <li class="tab col s3"><a class="active" class="blue-text" [href]="'patients' + '#patients1'">Patients</a></li>
+          <li class="tab col s3"><a class="active" class="blue-text" [href]="'patients' + '#patients2'">Consultations</a></li>
+           <div class="indicator blue" style="z-index:1"></div>
         </ul>
       </div>
-      <div id="patients" class="col s12">
+      <div id="patients1" class="col s12">
         <br><br>   
 
 <div class = "row">
@@ -81,9 +81,12 @@
   </a>
 </div>
       </div>
-      <div id="consultations" class="col s12">Test 2</div>
-
+      </div>
+<div id="patients2" class="col s12">
+    contents
 </div>
+
+
 
 
 
