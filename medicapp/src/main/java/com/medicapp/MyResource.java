@@ -1,25 +1,22 @@
+
 package com.medicapp;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
-/**
- * Root resource (exposed at "myresource" path)
+/** Example resource class hosted at the URI path "/myresource"
  */
-@Path("myresource")
+@Path("/myresource")
 public class MyResource {
-
-    /**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
-     *
-     * @return String that will be returned as a text/plain response.
+    
+    /** Method processing HTTP GET requests, producing "text/plain" MIME media
+     * type.
+     * @return String that will be send back as a response of type "text/plain".
      */
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @GET 
+    @Produces("text/plain")
     public String getIt() {
-        return "Got it!";
+        return "Hi there!";
     }
 }

@@ -1,14 +1,15 @@
 package com.medicapp.restcontroller;
 
+
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.medicapp.data.model.Patient;
 import com.medicapp.service.PatientService;
 
@@ -16,16 +17,13 @@ import com.medicapp.service.PatientService;
 
 @Path("/patients")
 public class PatientController {
-	
-	Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
 	
 	@GET
-	@Path("/all")
-	@Produces({MediaType.APPLICATION_JSON})
-	public Response getPatients(){
-		for(Patient patient : PatientService.getAllPatients()){
-			System.out.println(patient.getName());
-		}
-		return Response.ok("abc").build();
+    @Produces({ MediaType.APPLICATION_JSON })
+	public List<Patient> getPatients(){
+		List<Patient> patients =  PatientService.getAllPatients();
+		//GenericEntity<List<Patient>> list = new GenericEntity<List<Patient>>(patients){};
+		return patients;
 	}
 }

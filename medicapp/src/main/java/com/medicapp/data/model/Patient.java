@@ -5,7 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Entity
 @Table(name = "patient")
 public class Patient {
@@ -30,6 +32,7 @@ public class Patient {
 	@Column(name = "address")
 	private String address;
 	
+	@Transient
 	@OneToMany(fetch = FetchType.LAZY , mappedBy = "patient")
 	private Set<Consultation> consultations = new HashSet<Consultation>(0);
 
