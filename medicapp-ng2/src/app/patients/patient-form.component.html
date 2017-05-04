@@ -1,0 +1,62 @@
+<br><br><br><br>
+<h5>{{title}}</h5><br><br>
+<div class = "row">
+    <form materialize class = "col s12" [formGroup] = "form" (ngSubmit)= "save()">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="name" type="text" class="validate"
+                    [(ngModel)]="patient.name" formControlName="name"
+                    [class.invalid]="form.controls['name'].touched && !form.controls['name'].valid">
+                <label for="name"
+                [class.active]="patient.name"
+                data-error="Name is required and needs to contain at least 3 chars">
+                     Name
+                </label>
+             </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="idcardNumber" type="text" class="validate"
+                    [(ngModel)]="patient.idcardNumber" formControlName="idcardNumber"
+                    [class.invalid]="form.controls['idcardNumber'].touched && !form.controls['idcardNumber'].valid">
+                <label for="idcardNumber"
+                [class.active]="patient.idcardNumber"
+                data-error="Id Card Number is required , must start with two uppercase letters and only numbers">
+                     Id Card Number
+                </label>
+             </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="cnp" type="number" class="validate"
+                    [(ngModel)]="patient.cnp" formControlName="cnp"
+                    [class.invalid]="form.controls['cnp'].touched && !form.controls['cnp'].valid">
+                <label for="cnp"
+                [class.active]="patient.cnp"
+                data-error="Cnp is required , must contain only numbers and must be valid ">
+                     Cnp
+                </label>
+             </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="address" type="text" class="validate"
+                    [(ngModel)]="patient.address" formControlName="address"
+                    [class.invalid]="form.controls['address'].touched && !form.controls['address'].valid">
+                <label for="address"
+                [class.active]="patient.address"
+                data-error="Address is required and needs to contain at least 3 chars">
+                     Address
+                </label>
+             </div>
+        </div>
+
+        <button class="btn waves-effect waves-light" type="submit"
+            [disabled]="!form.valid">
+        Submit<i class="material-icons right">send</i>
+        </button>  
+    </form>
+</div>    

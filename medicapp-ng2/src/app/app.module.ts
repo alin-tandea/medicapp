@@ -6,18 +6,18 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from "./navbar/navbar.component"
-import { PatientComponent } from "./patient/patient.component"
+import { PatientModule } from "./patients/patient.module"
 import { routing } from './app.routing';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    PatientComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    PatientModule,
     HttpModule,
     //MaterializeModule,
     routing

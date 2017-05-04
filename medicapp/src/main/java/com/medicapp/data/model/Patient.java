@@ -111,6 +111,12 @@ public class Patient {
 		this.address = address;
 	}
 
+	@Override
+	public String toString() {
+		return "Patient [idpatient=" + idpatient + ", name=" + name + ", idcardNumber=" + idcardNumber + ", cnp=" + cnp
+				+ ", birthdate=" + birthdate + ", address=" + address + ", consultations=" + consultations + "]";
+	}
+
 	
 	
 }

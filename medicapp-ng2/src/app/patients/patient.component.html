@@ -1,0 +1,89 @@
+
+<br>
+<br>
+<div class="row">
+      <div class="col s12">
+        <ul class="tabs" materialize="tabs" >
+          <li class="tab col s3"><a class="active" href="patients#patients">Patients</a></li>
+          <li class="tab col s3"><a href="patients#consultations">Consultations</a></li>
+          
+        </ul>
+      </div>
+      <div id="patients" class="col s12">
+        <br><br>   
+
+<div class = "row">
+     <div class="input-field col s12">
+    <br>
+        <input id="name" type="text" [(ngModel)]="searchParameter">     
+        <label for="name">
+          Search input
+        </label>
+
+        <br>
+
+     </div>
+    <div class="row">
+            <div class="col s6">
+ 
+              <p>
+                <input name="group" type="radio" id="1" [(ngModel)]="radioButtonValue" [value]="1" />
+                <label for="1">Search by name</label>
+
+              </p>
+
+              <p>
+                <input name="group" type="radio" id="2" [(ngModel)]="radioButtonValue" [value]="2"/>
+                <label for="2">Search by cnp</label>
+              </p>
+         
+                <br>
+                <button class="btn waves-effect waves-light"  type="submit" name = "action" (click)="search()">
+                 Search
+                </button>
+            </div>
+    </div>               
+<br><br><br><br>
+<table class="highlight">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Id Card</th>
+            <th>CNP</th>
+            <th>Birthdate</th>
+            <th>Address</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor = "let patient of patients">
+            <td>{{patient.idpatient}}</td>
+            <td>{{patient.name}}</td>
+            <td>{{patient.idcardNumber}}</td>
+            <td>{{patient.cnp}}</td>
+            <td>{{patient.birthdate}}</td>
+            <td>{{patient.address}}</td>
+            <td>
+                <a [routerLink] = "['/patients',patient.idpatient]"> 
+                    <i class="material-icons">mode_edit</i>
+                </a>    
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+  <a class="btn-floating btn-large waves-effect waves-light green"
+     routerLink="/patients/new">
+    <i class="material-icons">group_add</i>
+  </a>
+</div>
+      </div>
+      <div id="consultations" class="col s12">Test 2</div>
+
+</div>
+
+
+

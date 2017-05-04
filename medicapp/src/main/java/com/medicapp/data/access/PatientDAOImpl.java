@@ -1,5 +1,6 @@
 package com.medicapp.data.access;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,8 @@ public class PatientDAOImpl implements PatientDAO{
 		this.sessionFactory = HibernateUtil.getSessionFactory();
 	}
 
+
+	
 	public void addPatient(String name, String idcardNumber, String cnp, Date birthdate, String address) {
 		Session session = sessionFactory.openSession();
 		Transaction tx =  session.beginTransaction();
