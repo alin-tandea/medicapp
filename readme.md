@@ -5,6 +5,7 @@ This project represents an application for managing the patients arrival and app
 at a medical institution 
 
 The system can be accesed by 3 types of users :
+	
 	* medic
 	* administrator
 	* secretary
@@ -34,6 +35,7 @@ for information about how to install those )
 
 The project hosted on GitHub does not contain the packages needed in this project  , that means
 you have to download those in the current project . You can do that by following these steps :
+	
 	* open a Command Prompt window
 	* change directory to the medicapp-ng2 directory
 	* run the following commands
