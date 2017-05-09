@@ -1,10 +1,10 @@
-import { BookstorePage } from './app.po';
+import { MedicappNg2Page } from './app.po';
 
-describe('bookstore App', () => {
-  let page: BookstorePage;
-
+describe('medicapp-ng2 App', () => {
+   let page: MedicappNg2Page;
+ 
   beforeEach(() => {
-    page = new BookstorePage();
+    page = new MedicappNg2Page();
   });
 
   it('should display message saying app works', () => {
