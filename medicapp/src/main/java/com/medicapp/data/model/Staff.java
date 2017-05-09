@@ -28,7 +28,7 @@ public class Staff {
 	@Column(name = "workdays")
 	private String workdays;
 
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "staff")
+	@OneToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL ,  mappedBy = "staff")
 	private Set<Consultation> consultations =  new HashSet<Consultation>(0);
 	
 	

@@ -1,0 +1,16 @@
+<h5>Add a new consultation</h5><br><br>
+
+<div class = "row">
+    <form materialize class = "col s12" [formGroup] = "form" (ngSubmit)= "save()">
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="date" type="text" [(ngModel)]="datepicker" formControlName="date" name="datepicker" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]" />
+                <label for="date"
+                    [class.active]="datepicker"
+                    data-error="Date is required">
+                     Click here to pick a date 
+                </label>
+            </div>
+        </div>
+    </form>
+</div>

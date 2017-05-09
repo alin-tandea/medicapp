@@ -31,6 +31,7 @@ public class ConsultationDAOImpl implements ConsultationDAO{
 		Patient p = (Patient)session.get(Patient.class, idpatient);
 		Staff s = session.get(Staff.class, idstaff);
 		c.setPatient(p);
+		c.setPatientName(p.getName());
 		c.setStaff(s);
 		p.getConsultations().add(c);
 		s.getConsultations().add(c);
@@ -90,5 +91,6 @@ public class ConsultationDAOImpl implements ConsultationDAO{
 		tx.commit();
 		return new ArrayList<Consultation>(s.getConsultations());
 	}
+	
 
 }

@@ -33,7 +33,7 @@ export class PatientComponent implements OnInit{
             .subscribe((patients) => {
                 this.patients = this.patients.filter(item => item == patients);
                 
-                if(patients.patient[2]){
+                if(patients.patient[1]){
                     console.log(Object.prototype.toString.call(patients));
                     this.patients = this.patients.filter(item => item == patients);
                      this.patients = patients.patient;
@@ -44,7 +44,7 @@ export class PatientComponent implements OnInit{
                 }
                 else{
                       this.patients[0] = patients.patient;
-                    console.log(this.patients);
+                    //console.log(this.patients);
                 
                 }
         })

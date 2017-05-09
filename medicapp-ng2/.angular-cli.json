@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "medicapp-ng2"
+    "name": "bookstore"
   },
   "apps": [
     {
@@ -19,9 +19,15 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+		"../node_modules/materialize-css/dist/css/materialize.css"
+
       ],
-      "scripts": [],
+      "scripts": [
+		"../node_modules/jquery/dist/jquery.js",
+		"../node_modules/hammerjs/hammer.js",
+		"../node_modules/materialize-css/dist/js/materialize.js"
+	  ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -29,6 +35,13 @@
       }
     }
   ],
+  "scripts": [
+  "../node_modules/jquery/dist/jquery.js",
+  "../node_modules/materialize-css/dist/js/materialize.js"
+],
+  "styles": [
+    "../node_modules/ag-grid/dist/styles/theme-fresh.css"
+],
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"

@@ -24,7 +24,6 @@ public class PatientController {
     @Produces({ MediaType.APPLICATION_JSON })
 	public List<Patient> getPatients(){
 		List<Patient> patients =  PatientService.getAllPatients();
-		//GenericEntity<List<Patient>> list = new GenericEntity<List<Patient>>(patients){};
 		return patients;
 	}
 	

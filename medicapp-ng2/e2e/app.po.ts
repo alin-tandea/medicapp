@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class MedicappNg2Page {
+export class BookstorePage {
   navigateTo() {
     return browser.get('/');
   }

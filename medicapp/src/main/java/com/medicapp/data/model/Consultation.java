@@ -2,7 +2,9 @@ package com.medicapp.data.model;
 
 import java.util.Date;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Entity
 @Table(name = "consultation")
 public class Consultation {
@@ -22,6 +24,9 @@ public class Consultation {
 	@Column(name = "reason")
 	private String reason;
 	
+	@Transient
+	private String patientName;
+	
 	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "patient_idpatient", nullable = false)
 	private Patient patient;
@@ -31,15 +36,26 @@ public class Consultation {
 	private Staff staff;
 
 	
-	
-	public Consultation(int idconsultation, Date datestart, Date dateend, String reason, Patient patient, Staff staff) {
+
+
+	public Consultation(int idconsultation, Date datestart, Date dateend, String reason, String patientName,
+			Patient patient, Staff staff) {
 		super();
 		this.idconsultation = idconsultation;
 		this.datestart = datestart;
 		this.dateend = dateend;
 		this.reason = reason;
+		this.patientName = patientName;
 		this.patient = patient;
 		this.staff = staff;
+	}
+
+	public String getPatientName() {
+		return patientName;
+	}
+
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
 	}
 
 	public Consultation() {
