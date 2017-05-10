@@ -22,7 +22,7 @@ export class PatientComponent implements OnInit{
     ngOnInit(){
         this._patientService.getAllPatients()
             .subscribe((patients) =>{ 
-                this.patients = patients.patient
+                this.patients = patients
                 console.log(this.patients);
         });
     }
@@ -31,28 +31,12 @@ export class PatientComponent implements OnInit{
         if(this.searchParameter){
         this._patientService.searchBy(this.radioButtonValue , this.searchParameter)
             .subscribe((patients) => {
-                this.patients = this.patients.filter(item => item == patients);
-                
-                if(patients.patient[1]){
-                    console.log(Object.prototype.toString.call(patients));
-                    this.patients = this.patients.filter(item => item == patients);
-                     this.patients = patients.patient;
-                  
-                }else if(Object.prototype.toString.call(patients) === '[object Null]'){
-                        
-                        this.patients = this.patients.filter(item => item == patients);
-                }
-                else{
-                      this.patients[0] = patients.patient;
-                    //console.log(this.patients);
-                
-                }
+                this.patients = patients
         })
         }else{
         this._patientService.getAllPatients()
-            .subscribe((patients) =>{ 
-                this.patients = patients.patient
-                console.log(this.patients);
+            .subscribe((res) =>{ 
+                this.patients = res
         });
         }
     }

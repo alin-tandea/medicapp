@@ -5,9 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
 @Entity
 @Table(name = "patient")
 public class Patient {

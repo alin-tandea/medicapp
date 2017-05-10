@@ -19,6 +19,8 @@ export class StaffService{
             .map(res => res.json());
     }
 
+    
+
     getAccount(id){
         return this._http.get(this.url +"/" + id)
             .map(res => res.json());

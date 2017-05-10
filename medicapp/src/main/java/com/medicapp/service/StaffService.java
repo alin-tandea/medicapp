@@ -1,6 +1,8 @@
 package com.medicapp.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.medicapp.data.access.StaffDAO;
 import com.medicapp.data.access.StaffDAOImpl;
@@ -27,6 +29,10 @@ public class StaffService {
 	
 	public static ArrayList<Staff> getAllStaff(){
 		return sd.getAllStaff();
+	}
+	
+	public static List<Staff> searchByUsername(String username){
+		return sd.getAllStaff().stream().filter(s -> s.getUsername().toLowerCase().contains(username)).collect(Collectors.toList());
 	}
 	
 	public static Staff getStaff(int idstaff){

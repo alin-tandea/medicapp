@@ -1,7 +1,7 @@
 package com.medicapp.restcontroller;
 
 
-import java.util.List;
+import java.lang.reflect.Modifier;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,46 +13,45 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.medicapp.data.model.Patient;
 import com.medicapp.service.PatientService;
 
 @Path("/patients")
 public class PatientController {
 	
+	private Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
 	
 	@GET
-    @Produces({ MediaType.APPLICATION_JSON })
-	public List<Patient> getPatients(){
-		List<Patient> patients =  PatientService.getAllPatients();
-		return patients;
+	@Path("/all")
+	public Response getPatients(){
+		System.out.println("here");
+		return Response.status(200).entity(gson.toJson(PatientService.getAllPatients())).build();
 	}
 	
 	@GET
 	@Path("/name/{searchParam}")
-    @Produces({ MediaType.APPLICATION_JSON })
-	@Consumes({MediaType.TEXT_PLAIN})
-	public List<Patient> searchByName(@PathParam("searchParam") String name){
-		return PatientService.searchPatientByName(name);
+	public Response searchByName(@PathParam("searchParam") String name){
+		return Response.status(200).entity(gson.toJson(PatientService.searchPatientByName(name))).build();
 	}
 	
 	@GET
 	@Path("/cnp/{searchParam}")
-    @Produces({ MediaType.APPLICATION_JSON })
-	@Consumes({MediaType.TEXT_PLAIN})
-	public List<Patient> searchByCnp(@PathParam("searchParam") String name){
-		return PatientService.searchPatientByCnp(name);
+	public Response searchByCnp(@PathParam("searchParam") String name){
+		return Response.status(200).entity(gson.toJson(PatientService.searchPatientByCnp(name))).build();
 	}
 	
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}")
-	public Patient getPatient(@PathParam("id") int idpatient){
-		return PatientService.getPatient(idpatient);
+	public Response getPatient(@PathParam("id") int idpatient){
+		return Response.status(200).entity(gson.toJson(PatientService.getPatient(idpatient))).build();
 	}
 	
 	@POST
 	@Path("/new")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON })
 	public Response addPatient(Patient p){
 		System.out.println(p.toString());
 		try{

@@ -16,7 +16,7 @@ export class PatientService{
     constructor(private _http : Http){}
 
     getAllPatients(){
-        return this._http.get(this.url)
+        return this._http.get(this.url + "/all")
             .map(res => res.json());
     }
 

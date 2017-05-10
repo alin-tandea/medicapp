@@ -35,6 +35,13 @@ public class AccountController {
 		return Response.status(200).entity(gson.toJson(StaffService.getStaff(idstaff))).build();
 	}
 
+	@GET
+	@Path("/search/{username}")
+	public Response searchByUsername(@PathParam("username")String username){
+		return Response.status(200).entity(gson.toJson(StaffService.searchByUsername(username))).build();
+				
+	}
+	
 	@POST
 	@Path("/new")
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -46,6 +53,7 @@ public class AccountController {
 			return Response.status(400).build();
 		}
 	}
+	
 
 	@PUT
 	@Path("/update/{id}")
