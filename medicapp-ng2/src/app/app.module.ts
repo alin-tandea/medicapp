@@ -9,6 +9,7 @@ import { LoadingAnimateModule, LoadingAnimateService } from 'ng2-loading-animate
 import { AppComponent } from './app.component';
 import { NavbarComponent } from "./navbar/navbar.component"
 import { PatientModule } from "./patients/patient.module"
+import { StaffModule } from "./staff-accounts/staff.module"
 import { routing } from './app.routing';
 import { ConsultationModule } from "./consultation/consultation.module"
 
@@ -20,6 +21,7 @@ import { ConsultationModule } from "./consultation/consultation.module"
   imports: [
     BrowserModule,
     FormsModule,
+    StaffModule,
     PatientModule,
     ConsultationModule,
     LoadingAnimateModule,

@@ -1,0 +1,30 @@
+<table class="highlight">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor = "let staff of staffAccounts">
+            <td>{{staff.idstaff}}</td>
+            <td>{{staff.name}}</td>
+            <td>{{staff.username}}</td>
+            <td>{{staff.role}}</td>
+            <td>
+                <a [routerLink] = "['/staff',staff.idstaff]"> 
+                    <i class="material-icons">mode_edit</i>
+                </a>    
+            </td>
+            <td>
+                <a [routerLink] = "['/cons',staff.idstaff]"> 
+                    <i class="material-icons">perm_contact_calendar</i>
+                </a>    
+            </td>
+        </tr>
+    </tbody>
+</table>
