@@ -24,25 +24,23 @@ public class Staff {
 	
 	@Column(name = "role")
 	private int role; // 0 - admin , 1 - medic , 2 - secretary
-	
-	@Column(name = "workdays")
-	private String workdays;
 
+	@Transient
+	@OneToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL ,  mappedBy = "staff")
+	private Set<WorkSchedule> workdays =  new HashSet<WorkSchedule>(0);
+
+	@Transient
 	@OneToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL ,  mappedBy = "staff")
 	private Set<Consultation> consultations =  new HashSet<Consultation>(0);
 	
 	
 	
-	public Staff(int idstaff, String name, String username, String password, int role, String workdays,
-			Set<Consultation> consultations) {
-		super();
-		this.idstaff = idstaff;
-		this.name = name;
-		this.username = username;
-		this.password = password;
-		this.role = role;
+	
+	public Set<WorkSchedule> getWorkdays() {
+		return workdays;
+	}
+	public void setWorkdays(Set<WorkSchedule> workdays) {
 		this.workdays = workdays;
-		this.consultations = consultations;
 	}
 	public Staff() {
 	}
@@ -82,12 +80,12 @@ public class Staff {
 	public void setRole(int role) {
 		this.role = role;
 	}
-	public String getWorkdays() {
-		return workdays;
+	@Override
+	public String toString() {
+		return "Staff [idstaff=" + idstaff + ", name=" + name + ", username=" + username + ", password=" + password
+				+ ", role=" + role + ", workdays=" + workdays + ", consultations=" + consultations + "]";
 	}
-	public void setWorkdays(String workdays) {
-		this.workdays = workdays;
-	}
+
 
 	
 }

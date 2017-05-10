@@ -20,7 +20,7 @@ public class StaffDAOImpl implements StaffDAO {
 	}
 
 	@Override
-	public void addStaff(String name, String username, String password, int role, String workdays) {
+	public void addStaff(String name, String username, String password, int role) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		Staff s = new Staff();
@@ -28,14 +28,13 @@ public class StaffDAOImpl implements StaffDAO {
 		s.setUsername(username);
 		s.setPassword(password);
 		s.setRole(role);
-		s.setWorkdays(workdays);
 		session.save(s);
 		tx.commit();
 		session.close();
 	}
 
 	@Override
-	public void updateStaff(int idstaff, String name, String username, String password, int role, String workdays) {
+	public void updateStaff(int idstaff, String name, String username, String password, int role) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		Staff s = session.get(Staff.class, idstaff);
@@ -43,7 +42,6 @@ public class StaffDAOImpl implements StaffDAO {
 		s.setUsername(username);
 		s.setPassword(password);
 		s.setRole(role);
-		s.setWorkdays(workdays);
 		session.update(s);
 		tx.commit();
 		session.close();

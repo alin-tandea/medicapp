@@ -11,14 +11,14 @@ public class StaffService {
 	
 	public static void addStaff(Staff s){
 		if(validateInfo(s)){
-			sd.addStaff(s.getName(), s.getUsername(), s.getPassword(), s.getRole(), s.getWorkdays());
+			sd.addStaff(s.getName(), s.getUsername(), s.getPassword(), s.getRole());
 		}else{
 			throw new RuntimeException("Duplicate username");
 		}
 	}
 	
 	public static void updateStaff(Staff s){
-		sd.addStaff(s.getName(), s.getUsername(), s.getPassword(), s.getRole(), s.getWorkdays());
+		sd.addStaff(s.getName(), s.getUsername(), s.getPassword(), s.getRole());
 	}
 	
 	public static ArrayList<Staff> getAllStaff(){
