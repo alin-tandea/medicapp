@@ -1,6 +1,6 @@
 package com.medicapp.data.access;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.hibernate.Query;
@@ -12,6 +12,7 @@ import com.medicapp.data.HibernateUtil;
 import com.medicapp.data.model.Staff;
 import com.medicapp.data.model.WorkSchedule;
 
+@SuppressWarnings("deprecation")
 public class WorkScheduleDAOImpl implements WorkScheduleDAO{
 	private SessionFactory sessionFactory;
 	
@@ -22,7 +23,7 @@ public class WorkScheduleDAOImpl implements WorkScheduleDAO{
 	}
 
 
-	@SuppressWarnings("deprecation")
+
 	@Override
 	public List<WorkSchedule> getEntireSchedule(int idstaff) {
 		Session session = sessionFactory.openSession();

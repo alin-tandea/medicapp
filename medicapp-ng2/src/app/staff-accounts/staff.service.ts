@@ -18,4 +18,24 @@ export class StaffService{
         return this._http.get(this.url + "/all")
             .map(res => res.json());
     }
+
+    getAccount(id){
+        return this._http.get(this.url +"/" + id)
+            .map(res => res.json());
+    }
+
+    addAccount(account){
+        return this._http.post(this.url + "/new", JSON.stringify(account) , {headers: this.headers})
+            .map(res => res);
+    }
+
+    updateAccount(id , account){
+        return this._http.put(this.url + "/update/" + id, JSON.stringify(account) , {headers: this.headers})
+            .map(res => res);
+    }
+
+    deleteAccount(id){
+        return this._http.delete(this.url + "/delete/" + id)
+            .map(res => res)
+    }
 }

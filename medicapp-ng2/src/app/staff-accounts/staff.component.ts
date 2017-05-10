@@ -22,4 +22,12 @@ export class StaffComponent implements OnInit{
                 console.log(this.staffAccounts);
             })
     }
+    deleteAccount(account){
+        if (confirm("Are you sure you want to delete " + account.username + "?")){
+            var index = account.idstaff;
+            this._staffService.deleteAccount(index)
+                .subscribe(null
+          )
+        } 
+    }  
 }

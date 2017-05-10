@@ -17,8 +17,12 @@ public class StaffService {
 		}
 	}
 	
-	public static void updateStaff(Staff s){
-		sd.addStaff(s.getName(), s.getUsername(), s.getPassword(), s.getRole());
+	public static void updateStaff(int idstaff ,Staff s){
+		sd.updateStaff(idstaff, s.getName(), s.getUsername(), s.getPassword(), s.getRole());
+	}
+	
+	public static void deleteAccount(int idstaff){
+		sd.deleteStaff(idstaff);
 	}
 	
 	public static ArrayList<Staff> getAllStaff(){

@@ -6,6 +6,7 @@ import { HttpModule }  from '@angular/http';
 
 import { StaffService } from './staff.service'
 import { StaffComponent } from './staff.component'
+import { StaffFormComponent } from "./staff-form.component"
 
 @NgModule({
         imports:[
@@ -17,7 +18,7 @@ import { StaffComponent } from './staff.component'
     ],
     declarations: [
             StaffComponent,
-
+            StaffFormComponent
     ],
     exports: [
             StaffComponent
