@@ -6,32 +6,39 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.gson.annotations.Expose;
+
 @XmlRootElement
 @Entity
 @Table(name = "staff")
 public class Staff {
 	
 	@Id @GeneratedValue
+	@Expose
 	@Column(name = "idstaff")
 	private int idstaff;
 	
 	@Column(name = "name")
+	@Expose
 	private String name;
 	
 	@Column(name = "username")
+	@Expose
 	private String username;
 	
 	@Column(name = "password")
+	@Expose
 	private String password;
 	
 	@Column(name = "role")
+	@Expose
 	private int role; // 0 - admin , 1 - medic , 2 - secretary
 
-	@Transient
+	@Expose(serialize = false)
 	@OneToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL ,  mappedBy = "staff")
 	private Set<WorkSchedule> workdays =  new HashSet<WorkSchedule>(0);
 
-	@Transient
+	@Expose(serialize = false)
 	@OneToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL ,  mappedBy = "staff")
 	private Set<Consultation> consultations =  new HashSet<Consultation>(0);
 	

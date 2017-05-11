@@ -4,6 +4,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.Set;
 
+import com.medicapp.data.access.ConsultationDAO;
+import com.medicapp.data.access.ConsultationDAOImpl;
 import com.medicapp.data.model.Consultation;
 import com.medicapp.data.model.Staff;
 import com.medicapp.data.model.WorkSchedule;
@@ -15,19 +17,9 @@ import com.medicapp.service.WorkScheduleService;
 public class Main {
 
 	public static void main(String[] args) {
+		ConsultationDAO c = new ConsultationDAOImpl();
 		
-		Staff s = new Staff();
-		s.setName("name");
-		s.setUsername("name");
-		s.setPassword("test");
-		s.setRole(1);
-		StaffService.addStaff(s);
-		
-		WorkSchedule w = new WorkSchedule();
-		w.setWorkday(1);
-		w.setStartHour(2);
-		w.setEndHour(3);
-		WorkScheduleService.addWorkSchedule(w, 1);
+		System.out.println(ConsultationService.getTodayConsultationMedic(12, 16));
 	}
 
 }

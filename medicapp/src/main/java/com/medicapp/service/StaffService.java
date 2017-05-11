@@ -35,6 +35,10 @@ public class StaffService {
 		return sd.getAllStaff().stream().filter(s -> s.getUsername().toLowerCase().contains(username)).collect(Collectors.toList());
 	}
 	
+	public static List<Staff> searchByName(String name){
+		return sd.getAllStaff().stream().filter(s -> s.getName().toLowerCase().contains(name)).collect(Collectors.toList());
+	}
+	
 	public static Staff getStaff(int idstaff){
 		return sd.getStaff(idstaff);
 	}

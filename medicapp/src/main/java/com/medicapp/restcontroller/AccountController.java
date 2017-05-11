@@ -1,6 +1,5 @@
 package com.medicapp.restcontroller;
 
-import java.lang.reflect.Modifier;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -21,7 +20,7 @@ import com.medicapp.service.StaffService;
 @Path("/accounts")
 public class AccountController {
 
-	private Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
+	private Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
 	@GET
 	@Path("/all")
@@ -41,6 +40,15 @@ public class AccountController {
 		return Response.status(200).entity(gson.toJson(StaffService.searchByUsername(username))).build();
 				
 	}
+	
+	@GET
+	@Path("/searchname/{name}")
+	public Response searchByName(@PathParam("name")String name){
+		System.out.println(name);
+		return Response.status(200).entity(gson.toJson(StaffService.searchByName(name))).build();
+				
+	}
+	
 	
 	@POST
 	@Path("/new")

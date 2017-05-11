@@ -79,6 +79,13 @@ public class WorkScheduleDAOImpl implements WorkScheduleDAO{
 		session.save(w);
 		tx.commit();
 	}
+
+
+
+	@Override
+	public WorkSchedule getSpecificDaySchedule(int idstaff, int day) {
+		return getEntireSchedule(idstaff).stream().filter(w -> w.getWorkday() == day).findFirst().get();
+	}
 	
 	
 }

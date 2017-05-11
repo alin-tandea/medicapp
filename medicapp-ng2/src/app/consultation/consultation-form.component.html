@@ -1,7 +1,7 @@
 <h5>Add a new consultation</h5><br><br>
 
 <div class = "row">
-    <form materialize class = "col s12" [formGroup] = "form" (ngSubmit)= "save()">
+    <form materialize class = "col s12" [formGroup] = "form">
         <div class="row">
             <div class="input-field col s6">
                 <input id="date" type="text" [(ngModel)]="datepicker" formControlName="date" name="datepicker" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]" />
@@ -12,5 +12,71 @@
                 </label>
             </div>
         </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="hour" type="number" class="validate"
+                    [(ngModel)]="cons.hour" formControlName="hour"
+                    [class.invalid]="form.controls['hour'].touched && !form.controls['hour'].valid">
+                <label for="hour"
+                [class.active]="cons.hour"
+                data-error="Enter the consultation starting hour">
+                     Hour
+                </label>
+             </div>
+        </div>
+
+                <br><br>
+        <h5>Choose starting minute</h5>
+        <br>
+        <div class="row">
+            <div class="col s3">
+                <input name="group" type="radio" id="1" [(ngModel)]="radioButtonValue" [value]="1" [ngModelOptions]="{standalone: true}"/>
+                <label for="1">00</label>
+            </div>
+            <div class="col s3">
+                <input name="group" type="radio" id="2" [(ngModel)]="radioButtonValue" [value]="2" [ngModelOptions]="{standalone: true}"/>
+                <label for="2">30</label>
+            </div>
+        </div> 
+        <br><br>
+
+          <div class="input-field col s12">
+    <br>
+        <input id="name" type="text" [(ngModel)]="searchParameter" [ngModelOptions]="{standalone: true}">     
+        <label for="name">
+          Medic name
+        </label>
+
+        <br>
+
+     </div>
+    <div class="row">
+            <button class="btn waves-effect waves-light"  type="submit" name = "action" (click)="search()">
+                 Search
+            </button>
+    </div>     
+
+    <table class="highlight">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Select</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor = "let medic of medics">
+            <td>{{medic.name}}</td>
+            <td>
+                  <button class="btn waves-effect waves-light" (click)="select(medic)">Select</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+        <button class="btn waves-effect waves-light" type="submit"
+            [disabled]="!form.valid" (click) = "save()">
+            Submit<i class="material-icons right">send</i>
+        </button> 
     </form>
 </div>
