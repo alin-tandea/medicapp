@@ -35,6 +35,7 @@ public class Consultation {
 	private int status;
 	
 	@Transient
+	@Expose
 	private String patientName;
 	
 	@ManyToOne(fetch = FetchType.LAZY )

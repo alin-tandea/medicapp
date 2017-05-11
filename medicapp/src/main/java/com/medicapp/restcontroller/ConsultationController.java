@@ -8,30 +8,43 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.medicapp.data.model.Consultation;
 import com.medicapp.data.model.ConsultationWrapper;
 import com.medicapp.service.ConsultationService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 @Path("consultations")
 public class ConsultationController {
 
 	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+
+	
+	@SuppressWarnings("deprecation")
+	@GET
+	@Path("/date/current")
+	public Response getTodayConsultation() {
+		Date date = new Date();
+		return Response.status(200).entity(gson.toJson(ConsultationService.getTodayConsultations(date.getDate()))).build();
+	}
 	
 	@GET
-	@Path("/{idstaff}/{day}")
-	public List<Consultation> getTodayConsultations(@PathParam("idstaff") int idstaff, @PathParam("day") int day) {
-		List<Consultation> consultations = ConsultationService.getTodayConsultationMedic(idstaff, day);
-		return consultations;
+	@Path("/date/{day}")
+	public Response getTodayConsultation(@PathParam("day") int day) {
+		return Response.status(200).entity(gson.toJson(ConsultationService.getTodayConsultations(day))).build();
 	}
 
+	@GET
+	@Path("/checkin/{id}")
+	public Response checkIn(@PathParam("id") int id){
+		ConsultationService.checkIn(id);
+		return Response.ok().build();
+	}
+	
 	@SuppressWarnings("deprecation")
 	@POST
-	@Path("/add") 
+	@Path("/add")
 	public Response addConsultation(ConsultationWrapper c) {
 		System.out.println(c.getDate());
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");

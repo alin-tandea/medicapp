@@ -2,6 +2,7 @@ package com.medicapp.data.access;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -52,7 +53,7 @@ public class ConsultationDAOImpl implements ConsultationDAO {
 		Date d = new Date();
 		c.setDateend(d);
 		c.setReason(reason);
-		c.setStatus(1); //1 - means completed
+		c.setStatus(1); // 1 - means completed
 		c.getPatient().getConsultations().stream().filter(cons -> cons.getIdconsultation() == idconsultation)
 				.findFirst().get().setDateend(d);
 		c.getPatient().getConsultations().stream().filter(cons -> cons.getIdconsultation() == idconsultation)
@@ -67,6 +68,19 @@ public class ConsultationDAOImpl implements ConsultationDAO {
 		tx.commit();
 		session.close();
 
+	}
+
+	public void checkIn(int idconsultation) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Consultation c = (Consultation) session.get(Consultation.class, idconsultation);
+		if (c.getStatus() == 0) {
+			c.setStatus(1);
+		} else {
+			c.setStatus(0);
+		}
+		tx.commit();
+		session.close();
 	}
 
 	@Override
@@ -105,6 +119,20 @@ public class ConsultationDAOImpl implements ConsultationDAO {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public List<Consultation> getAllConsultations() {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<Consultation> cons = session.createQuery("select c from Consultation c").list();
+		for (Consultation c : cons) {
+			c.setPatientName(c.getPatient().getName());
+		}
+		tx.commit();
+		session.close();
+		return cons;
 	}
 
 }

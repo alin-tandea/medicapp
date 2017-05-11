@@ -1,5 +1,5 @@
 import {Component , OnInit} from '@angular/core';
-
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { ConsultationService } from "./consultation.service"
 import { Consultation } from './consultation'
@@ -17,10 +17,25 @@ export class ConsultationComponent implements OnInit{
     searchParameter :any;
     radioButtonValue :any = 1;
     data_item;
-    constructor(private _consultationService : ConsultationService){}
+    constructor(
+        private _router : Router,
+        private _route : ActivatedRoute,
+        private _consultationService : ConsultationService){}
 
 
     ngOnInit(){
+        this._consultationService.getTodayConsultations()
+            .subscribe((data) => {
+                this.consultations = data
+                console.log(this.consultations)
+            })
+    }
 
+    checkIn(id){
+        this._consultationService.checkIn(id)
+            .subscribe((res)=> {
+                this._router.navigate(['consultations'])
+            })
+            this._router.navigateByUrl('consultations')
     }
 }

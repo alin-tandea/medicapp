@@ -2,6 +2,7 @@ package com.medicapp.data.access;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.medicapp.data.model.Consultation;
 
@@ -11,5 +12,7 @@ public interface ConsultationDAO {
 	Consultation getConsultation(int idconsultation);
 	ArrayList<Consultation> getConsultations(int idpatient);
 	ArrayList<Consultation> getConsultationsMedic(int idstaff);
+	List<Consultation> getAllConsultations();
+	void checkIn(int idconsultation);
 	
 }

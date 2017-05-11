@@ -26,4 +26,18 @@ export class ConsultationService{
             .map(res => res.json())
     }
 
+    getConsultationDate(day){
+        return this._http.get(this.url + "/date/" + day)
+            .map(res => res.json())
+    }
+
+    checkIn(id){
+        return this._http.get(this.url + "/checkin/" + id)
+            .map(res => res)
+    }
+
+    getTodayConsultations(){
+        return this._http.get(this.url + "/date/current")
+            .map(res =>res.json())
+    }
 }

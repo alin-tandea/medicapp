@@ -3,5 +3,6 @@ export class Consultation{
     datestart : string;
     dateend : string;
     reason : string;
+    status : number;
     patientName : string;
 }

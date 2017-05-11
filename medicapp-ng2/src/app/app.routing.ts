@@ -7,6 +7,7 @@ import { ConsultationFormComponent } from './consultation/consultation-form.comp
 import { StaffComponent } from "./staff-accounts/staff.component"
 import { StaffFormComponent } from "./staff-accounts/staff-form.component"
 import { WorkComponent } from './medic/work.component'
+import { ConsultationComponent } from "./consultation/consultation.component"
 
 const appRoutes: Routes = [
     { path: 'patients', component: PatientComponent },
@@ -16,7 +17,8 @@ const appRoutes: Routes = [
     { path: 'staff' , component : StaffComponent},
     { path: 'staff/new' , component : StaffFormComponent},
     { path: 'staff/:idStaff' , component : StaffFormComponent},
-    { path: 'schedule/:idStaff' , component : WorkComponent}
+    { path: 'schedule/:idStaff' , component : WorkComponent},
+    { path: 'consultations' , component :ConsultationComponent}
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

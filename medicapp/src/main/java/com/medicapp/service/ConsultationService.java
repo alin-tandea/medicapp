@@ -20,7 +20,7 @@ public class ConsultationService {
 	private static boolean validateConsultation(Date date, int idstaff) {
 		int weekday = date.getDay();
 		WorkSchedule schedule = ws.getSpecificDaySchedule(idstaff, weekday);
-		System.out.println(schedule + " hours = " + date.getHours() );
+		System.out.println(schedule + " hours = " + date.getHours());
 		if (schedule != null) {
 			if (date.getHours() < schedule.getStartHour() || date.getHours() > schedule.getEndHour()) {
 				return false;
@@ -28,11 +28,11 @@ public class ConsultationService {
 		} else {
 			return false;
 		}
-		
+
 		int dateDay = date.getDate();
 		List<Consultation> todayConsultation = getTodayConsultationMedic(idstaff, dateDay);
 		System.out.println(todayConsultation);
-		
+
 		if (todayConsultation != null) {
 			for (Consultation cons : todayConsultation) {
 				if ((cons.getDatestart().getHours() == date.getHours())
@@ -44,6 +44,10 @@ public class ConsultationService {
 		return true;
 	}
 
+	public static void checkIn(int idconsultation){
+		cd.checkIn(idconsultation);
+	}
+	
 	public static void addConsultation(Date date, int idpatient, int idstaff) {
 		if (validateConsultation(date, idstaff)) {
 			cd.addConsultation(date, idpatient, idstaff);
@@ -61,12 +65,17 @@ public class ConsultationService {
 	}
 
 	@SuppressWarnings("deprecation")
+	public static ArrayList<Consultation> getTodayConsultations(int day) {
+		return (ArrayList<Consultation>) cd.getAllConsultations().stream()
+				.filter(c -> c.getDatestart().getDate() == day).collect(Collectors.toList());
+	}
+
+	@SuppressWarnings("deprecation")
 	public static ArrayList<Consultation> getTodayConsultationMedic(int idstaff, int day) {
 		if (getConsultationsMedic(idstaff) != null) {
 			System.out.println(getConsultationsMedic(idstaff));
 			return (ArrayList<Consultation>) getConsultationsMedic(idstaff).stream()
-					.filter(c -> c.getDatestart().getDate() == day)
-					.collect(Collectors.toList());
+					.filter(c -> c.getDatestart().getDate() == day).collect(Collectors.toList());
 		} else {
 			return null;
 		}
