@@ -9,5 +9,6 @@ public interface StaffDAO {
 	void updateStaff(int idstaff, String name  , String username , String password , int role );
 	void deleteStaff(int idstaff);
 	ArrayList<Staff> getAllStaff();
+	int verifyLogIn(String username, String password);
 	Staff getStaff(int idstaff);
 }

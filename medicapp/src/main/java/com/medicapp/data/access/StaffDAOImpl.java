@@ -2,17 +2,21 @@ package com.medicapp.data.access;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
 
 import com.medicapp.data.HibernateUtil;
 import com.medicapp.data.model.Staff;
 import com.medicapp.data.model.WorkSchedule;
 import com.medicapp.service.WorkScheduleService;
 
+
+@SuppressWarnings("deprecation")
 public class StaffDAOImpl implements StaffDAO {
 
 	private SessionFactory sessionFactory;
@@ -21,6 +25,28 @@ public class StaffDAOImpl implements StaffDAO {
 		super();
 		this.sessionFactory = HibernateUtil.getSessionFactory();
 	}
+	
+	public int verifyLogIn(String username, String password) {
+        @SuppressWarnings({ "rawtypes" })
+		Query query = null;
+		Session session = sessionFactory.openSession();
+        try {
+            query = session.createQuery("from Staff a where a.username=:username and a.password =:password");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        @SuppressWarnings("unchecked")
+		List<Staff> list = query.list();
+        if (list.size() > 0) {
+            session.close();
+    
+            return list.get(0).getIdstaff();
+        }
+        session.close();
+        return -1;
+    }
 
 	@Override
 	public void addStaff(String name, String username, String password, int role) {
@@ -68,6 +94,7 @@ public class StaffDAOImpl implements StaffDAO {
 		Staff s = session.get(Staff.class, idstaff);
 		session.delete(s);
 		tx.commit();
+		 session.close();
 	}
 
 	@Override
@@ -77,6 +104,7 @@ public class StaffDAOImpl implements StaffDAO {
 		@SuppressWarnings("unchecked")
 		List<Staff> staff = session.createQuery("select s from Staff s").list();
 		tx.commit();
+		 session.close();
 		return (ArrayList<Staff>) staff;
 	}
 

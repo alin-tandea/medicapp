@@ -17,6 +17,7 @@
             <th>Patient name</th>
             <th>Time</th>
             <th>Status</th>
+
         </tr>
     </thead>
 
@@ -31,11 +32,10 @@
                 <div *ngIf = "cons.status == 1" >
                     Arrived
                 </div>
+                <div *ngIf = "cons.status == 2" >
+                    Completed
+                </div>    
             </td>
-            <td>
-                <button class="btn waves-effect waves-light" (click)="checkIn(cons.idconsultation)">Check-in</button>
-            </td>
-
         </tr>
     </tbody>
 </table>

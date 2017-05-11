@@ -6,6 +6,9 @@ import { HttpModule }  from '@angular/http';
 
 import { WorkService } from './work.service'
 import { WorkComponent } from './work.component'
+import { ConsultationService } from "../consultation/consultation.service"
+import {MaterializeDirective} from "angular2-materialize";
+
 
 @NgModule({
     imports:[
@@ -16,13 +19,13 @@ import { WorkComponent } from './work.component'
             HttpModule,
     ],
     declarations: [
-            WorkComponent
+            WorkComponent,
     ],
     exports: [
-            WorkComponent
+            WorkComponent,
     ],
     providers: [
-            WorkService
+            WorkService , ConsultationService
     ]         
 })
 

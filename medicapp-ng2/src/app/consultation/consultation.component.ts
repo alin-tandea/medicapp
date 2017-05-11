@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { ConsultationService } from "./consultation.service"
 import { Consultation } from './consultation'
-
+import {MaterializeDirective} from "angular2-materialize";
 
 @Component({
     selector : 'cons-comp',
@@ -17,6 +17,7 @@ export class ConsultationComponent implements OnInit{
     searchParameter :any;
     radioButtonValue :any = 1;
     data_item;
+    datepicker;
     constructor(
         private _router : Router,
         private _route : ActivatedRoute,
@@ -34,8 +35,19 @@ export class ConsultationComponent implements OnInit{
     checkIn(id){
         this._consultationService.checkIn(id)
             .subscribe((res)=> {
-                this._router.navigate(['consultations'])
+                console.log(res)
+                this._router.navigateByUrl('/consultations')
+                
             })
-            this._router.navigateByUrl('consultations')
+            
+    }
+
+    checkDate(){
+        console.log(this.datepicker)
+        this._consultationService.getConsultationDate(this.datepicker)
+            .subscribe((data) => {
+                this.consultations = data
+                console.log(this.consultations)
+            })
     }
 }

@@ -20,6 +20,8 @@ export class WorkService{
             .map(res => res.json())
     }
 
+
+
     getSchedule(id){
         return this._http.get(this.url + "/" + id)
             .map(res => res.json())

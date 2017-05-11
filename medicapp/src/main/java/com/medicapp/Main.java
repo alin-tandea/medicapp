@@ -17,9 +17,7 @@ import com.medicapp.service.WorkScheduleService;
 public class Main {
 
 	public static void main(String[] args) {
-		ConsultationDAO c = new ConsultationDAOImpl();
-		
-		System.out.println(ConsultationService.getTodayConsultationMedic(12, 16));
+		System.out.println(StaffService.verifyLogIn("me0dic", "123456"));
 	}
 
 }

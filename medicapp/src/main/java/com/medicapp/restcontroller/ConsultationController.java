@@ -20,28 +20,52 @@ public class ConsultationController {
 
 	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
-	
 	@SuppressWarnings("deprecation")
 	@GET
 	@Path("/date/current")
 	public Response getTodayConsultation() {
 		Date date = new Date();
-		return Response.status(200).entity(gson.toJson(ConsultationService.getTodayConsultations(date.getDate()))).build();
+		System.out.println(date.getYear() + 1900);
+		return Response.status(200)
+				.entity(gson.toJson(
+						ConsultationService.getTodayConsultations(date.getDate(), date.getMonth(), date.getYear())))
+				.build();
 	}
-	
+
 	@GET
-	@Path("/date/{day}")
-	public Response getTodayConsultation(@PathParam("day") int day) {
-		return Response.status(200).entity(gson.toJson(ConsultationService.getTodayConsultations(day))).build();
+	@Path("/date/{day}/{month}/{year}")
+	public Response getTodayConsultation(@PathParam("day") int day, @PathParam("month") int month,
+			@PathParam("year") int year) {
+		System.out.println(day + "/" + month + "/" + year);
+		return Response.status(200).entity(gson.toJson(ConsultationService.getTodayConsultations(day, month, year)))
+				.build();
+	}
+
+	@GET
+	@Path("/medic/{id}/{day}/{month}/{year}")
+	public Response getMedicConsultation(@PathParam("day") int day, @PathParam("month") int month,
+			@PathParam("year") int year, @PathParam("id") int id) {
+		System.out.println(day + "/" + month + "/" + year);
+		return Response.status(200)
+				.entity(gson.toJson(ConsultationService.getTodayConsultationMedic(id, day, month, year))).build();
+	}
+
+	@SuppressWarnings("deprecation")
+	@GET
+	@Path("/medic/{id}")
+	public Response getTodayMedicConsultation(@PathParam("id")int id){
+		Date date = new Date();
+		return Response.status(200).entity(gson.toJson(ConsultationService.getTodayConsultationMedic(id, date.getDate(),
+				date.getMonth() +1, date.getYear()+1900))).build();
 	}
 
 	@GET
 	@Path("/checkin/{id}")
-	public Response checkIn(@PathParam("id") int id){
+	public Response checkIn(@PathParam("id") int id) {
 		ConsultationService.checkIn(id);
 		return Response.ok().build();
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@POST
 	@Path("/add")

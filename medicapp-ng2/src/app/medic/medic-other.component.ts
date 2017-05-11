@@ -12,12 +12,12 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
-    selector : 'med-comp',
-    templateUrl: './medic.component.html',
+    selector : 'med2-comp',
+    templateUrl: './medic-other.component.html',
     
 })
 
-export class MedicComponent implements OnInit{
+export class MedicOtherComponent implements OnInit{
     show : any[] = [];
     consultations : Consultation[] = [];
     searchParameter :any;
@@ -30,17 +30,6 @@ export class MedicComponent implements OnInit{
         private _router : Router,
         private _route : ActivatedRoute,
         private _consultationService : ConsultationService){
-            var id = this._route.params.subscribe(params =>{
-            var id = params['idStaff'];
-            this.id = id;
-            console.log(id)
-            });
-            Observable.interval(5000).switchMap(()=>
-                this._http.get("http://localhost:8080/medicapp/consultations/medic/" +this.id )
-                                            .map(res => res.json()))
-                                .subscribe((data) => {
-                this.consultations = data
-                console.log(this.consultations)})
             }
 
 
@@ -49,11 +38,11 @@ export class MedicComponent implements OnInit{
             var id = params['idStaff'];
             this.id = id;
         });
-  /*     this._consultationService.getConsultationsMedicToday(this.id)
+       this._consultationService.getConsultationsMedicToday(this.id)
             .subscribe((data) => {
                 this.consultations = data
                 console.log(this.consultations)
-            })*/
+            })
     }
 
     checkDate(){

@@ -1,0 +1,54 @@
+<br><br><br><br>
+<h5>Appointments for today : </h5>
+
+ <br><br>
+<table class="highlight">
+    <thead>
+        <tr>
+            <th>Patient name</th>
+            <th>Time</th>
+            <th>Status</th>
+                <th>
+                Consult observations
+                </th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor = "let cons of consultations">
+            <td>{{cons.patientName}}</td>
+            <td>{{cons.datestart}}</td>
+            <td>
+                <div *ngIf = "cons.status == 0" >
+                    Not Arrived
+                </div>
+                <div *ngIf = "cons.status == 1" >
+                    Arrived
+                </div>
+                <div *ngIf = "cons.status == 2" >
+                    Completed
+                </div>    
+            </td>
+            <td>
+                <div *ngIf = "!show[cons.idconsultation]"> 
+                    <button class="btn waves-effect waves-light" (click)="show[cons.idconsultation] = !show[cons.idconsultation]">Consult</button>
+                </div>
+
+                <div *ngIf = "show[cons.idconsultation]">
+                     <button class="btn waves-effect waves-light" (click)="save()">Save</button>
+                     <button class="btn waves-effect waves-light" (click)="show[cons.idconsultation] = !show[cons.idconsultation]">Cancel</button>
+
+                </div>
+            </td>
+            <div *ngIf = "show[cons.idconsultation]">
+                <td>
+                    <input type="text"  id="name"
+                            required
+                         [(ngModel)]="cons.reason" name="name">
+                </td>
+            </div>
+
+        </tr>
+    </tbody>
+</table>

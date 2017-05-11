@@ -41,7 +41,9 @@ public class ConsultationDAOImpl implements ConsultationDAO {
 		session.save(c);
 		session.save(p);
 		session.save(s);
+		
 		tx.commit();
+		session.close();
 
 	}
 
@@ -90,6 +92,7 @@ public class ConsultationDAOImpl implements ConsultationDAO {
 		Consultation c = (Consultation) session.get(Consultation.class, idconsultation);
 		session.save(c);
 		tx.commit();
+		session.close();
 		return c;
 	}
 
@@ -99,6 +102,7 @@ public class ConsultationDAOImpl implements ConsultationDAO {
 		Transaction tx = session.beginTransaction();
 		Patient p = (Patient) session.get(Patient.class, idpatient);
 		tx.commit();
+		session.close();
 		System.out.println(p);
 		if (p != null) {
 			return new ArrayList<Consultation>(p.getConsultations());
@@ -115,7 +119,13 @@ public class ConsultationDAOImpl implements ConsultationDAO {
 		System.out.println("get cons medic = " + s);
 		tx.commit();
 		if (s != null) {
-			return new ArrayList<Consultation>(s.getConsultations());
+			//System.out.println(s.getConsultations());
+			List<Consultation> cons = new ArrayList<Consultation>(s.getConsultations());
+			for (Consultation c : cons) {
+				c.setPatientName(c.getPatient().getName());
+			}
+			session.close();
+			return (ArrayList<Consultation>) cons;
 		} else {
 			return null;
 		}

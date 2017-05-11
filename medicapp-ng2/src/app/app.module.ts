@@ -13,11 +13,19 @@ import { StaffModule } from "./staff-accounts/staff.module"
 import { routing } from './app.routing';
 import { ConsultationModule } from "./consultation/consultation.module"
 import { MedicModule } from "./medic/medic.module"
+import { LoginComponent } from './home/login.component';
+import { AuthenticationService } from './home/authentication.service'
+import { AuthGuard } from './home/auth.guard'
+import {MaterializeDirective} from "angular2-materialize";
+import { AdminAuthGuard } from "./home/admin-auth.guard"
+import { MedicAuthGuard } from "./home/medic-auth.guard"
+import { SecretaryAuthGuard } from "./home/secretary-auth.guard"
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
+    LoginComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -25,13 +33,14 @@ import { MedicModule } from "./medic/medic.module"
     StaffModule,
     MedicModule,
     PatientModule,
+    
     ConsultationModule,
     LoadingAnimateModule,
     HttpModule,
-    //MaterializeModule,
+    
     routing
   ],
-  providers: [LoadingAnimateService],
+  providers: [LoadingAnimateService , AuthenticationService , AuthGuard , AdminAuthGuard ,MedicAuthGuard , SecretaryAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

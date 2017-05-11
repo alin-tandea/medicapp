@@ -64,6 +64,7 @@ public class PatientDAOImpl implements PatientDAO{
 		@SuppressWarnings("unchecked")
 		List<Patient> patients = session.createQuery("select p from Patient p").list();
 		tx.commit();
+		 session.close();
 		return (ArrayList<Patient>) patients;
 	}
 

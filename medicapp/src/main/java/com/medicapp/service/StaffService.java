@@ -6,17 +6,30 @@ import java.util.stream.Collectors;
 
 import com.medicapp.data.access.StaffDAO;
 import com.medicapp.data.access.StaffDAOImpl;
+import com.medicapp.data.model.JwtUtil;
+import com.medicapp.data.model.LogInfo;
 import com.medicapp.data.model.Staff;
+
 
 public class StaffService {
 	private static StaffDAO sd = new  StaffDAOImpl();
-	
+	private static JwtUtil j = new JwtUtil();
 	public static void addStaff(Staff s){
 		if(validateInfo(s)){
 			sd.addStaff(s.getName(), s.getUsername(), s.getPassword(), s.getRole());
 		}else{
 			throw new RuntimeException("Duplicate username");
 		}
+	}
+	
+	public static LogInfo verifyLogIn(String user , String pass){
+		int userId = sd.verifyLogIn(user, pass);
+		if (userId != -1) {
+			Staff acc = sd.getStaff(userId);
+			LogInfo log = new LogInfo(user ,j.generateToken(acc) , acc.getIdstaff() , acc.getRole());
+			return log;
+		}
+		return null;
 	}
 	
 	public static void updateStaff(int idstaff ,Staff s){

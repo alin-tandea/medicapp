@@ -29,8 +29,8 @@ public class ConsultationService {
 			return false;
 		}
 
-		int dateDay = date.getDate();
-		List<Consultation> todayConsultation = getTodayConsultationMedic(idstaff, dateDay);
+
+		List<Consultation> todayConsultation = getTodayConsultationMedic(idstaff, date.getDate() , date.getMonth() , date.getYear()+1900);
 		System.out.println(todayConsultation);
 
 		if (todayConsultation != null) {
@@ -44,10 +44,10 @@ public class ConsultationService {
 		return true;
 	}
 
-	public static void checkIn(int idconsultation){
+	public static void checkIn(int idconsultation) {
 		cd.checkIn(idconsultation);
 	}
-	
+
 	public static void addConsultation(Date date, int idpatient, int idstaff) {
 		if (validateConsultation(date, idstaff)) {
 			cd.addConsultation(date, idpatient, idstaff);
@@ -65,20 +65,28 @@ public class ConsultationService {
 	}
 
 	@SuppressWarnings("deprecation")
-	public static ArrayList<Consultation> getTodayConsultations(int day) {
-		return (ArrayList<Consultation>) cd.getAllConsultations().stream()
-				.filter(c -> c.getDatestart().getDate() == day).collect(Collectors.toList());
+	public static ArrayList<Consultation> getTodayConsultations(int day, int month, int year) {
+		return (ArrayList<Consultation>) cd.getAllConsultations().stream().filter(c -> {
+			if (c.getDatestart().getDate() == day && c.getDatestart().getMonth() == (month - 1)
+					&& (c.getDatestart().getYear() + 1900) == year) {
+				return true;
+			}
+			return false;
+		}).collect(Collectors.toList());
+
 	}
 
+
 	@SuppressWarnings("deprecation")
-	public static ArrayList<Consultation> getTodayConsultationMedic(int idstaff, int day) {
-		if (getConsultationsMedic(idstaff) != null) {
-			System.out.println(getConsultationsMedic(idstaff));
-			return (ArrayList<Consultation>) getConsultationsMedic(idstaff).stream()
-					.filter(c -> c.getDatestart().getDate() == day).collect(Collectors.toList());
-		} else {
-			return null;
-		}
+	public static ArrayList<Consultation> getTodayConsultationMedic(int idstaff, int day, int month, int year) {
+		System.out.println(day+"/"+month + "/" + year);
+		return (ArrayList<Consultation>) cd.getConsultationsMedic(idstaff).stream().filter(c -> {
+			if (c.getDatestart().getDate() == day && c.getDatestart().getMonth() == (month - 1)
+					&& (c.getDatestart().getYear() + 1900) == year) {
+				return true;
+			}
+			return false;
+		}).collect(Collectors.toList());
 	}
 
 	public static ArrayList<Consultation> getConsultationsMedic(int idstaff) {

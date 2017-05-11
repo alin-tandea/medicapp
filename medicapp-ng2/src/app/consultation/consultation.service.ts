@@ -26,6 +26,14 @@ export class ConsultationService{
             .map(res => res.json())
     }
 
+    getConsultationsMedic(id , day){
+        return this._http.get("http://localhost:8080/medicapp/consultations/medic/" +id +"/"+ day)
+            .map(res =>res.json())
+    }
+    getConsultationsMedicToday(id){
+        return this._http.get("http://localhost:8080/medicapp/consultations/medic/" +id )
+            .map(res =>res.json())
+    }
     getConsultationDate(day){
         return this._http.get(this.url + "/date/" + day)
             .map(res => res.json())

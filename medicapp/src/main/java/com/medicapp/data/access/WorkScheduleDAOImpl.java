@@ -32,6 +32,7 @@ public class WorkScheduleDAOImpl implements WorkScheduleDAO{
 		Query<WorkSchedule> query = session.createQuery("select s from WorkSchedule s where staff_idstaff = :idstaff");
 		query.setParameter("idstaff", idstaff);
 		tx.commit();
+		
 		return query.list();
 	
 
@@ -44,6 +45,7 @@ public class WorkScheduleDAOImpl implements WorkScheduleDAO{
 		Transaction tx = session.beginTransaction();
 		WorkSchedule w = session.get(WorkSchedule.class, id);
 		tx.commit();
+		 session.close();
 		return w;
 	}
 
@@ -59,6 +61,7 @@ public class WorkScheduleDAOImpl implements WorkScheduleDAO{
 		w.setEndHour(endHour);
 		session.save(w);
 		tx.commit();
+		 session.close();
 		
 	}
 
@@ -78,6 +81,7 @@ public class WorkScheduleDAOImpl implements WorkScheduleDAO{
 		session.save(s);
 		session.save(w);
 		tx.commit();
+		 session.close();
 	}
 
 

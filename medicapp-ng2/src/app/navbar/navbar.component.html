@@ -4,10 +4,19 @@
       <div class="nav-wrapper">
         <a href="#!" class="brand-logo center">MedicApp</a>
         <ul class="left hide-on-med-and-down">
-          <li><a [routerLink]="['/patients']">Patients</a></li>
-          <li><a [routerLink]="['/staff']">Accounts</a></li>
-          <li><a [routerLink]="['/schedule/12']">Schedule</a></li>
-          <li><a [routerLink]="['/consultations']">Consultations</a></li>
+          <div *ngIf = "type == 0">
+             <li><a [routerLink]="['/staff']">Accounts</a></li>
+          </div>
+          <div *ngIf = "type == 1">
+              <li><a [routerLink]="['/medic' , id]">Main</a></li>
+             <li><a [routerLink]="['/schedule' , id]">Schedule</a></li>
+             <li><a [routerLink]="['/appointments' , id]">Appointments</a></li>
+            
+          </div>
+          <div *ngIf = "type == 2">
+            <li><a [routerLink]="['/patients']">Patients</a></li>
+            <li><a [routerLink]="['/consultations']">Consultations</a></li>
+          </div>
         </ul>
 
         <ul class="right hide-on-med-and-down">
