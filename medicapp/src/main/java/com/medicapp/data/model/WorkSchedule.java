@@ -8,30 +8,37 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.gson.annotations.Expose;
 
+@XmlRootElement
 @Entity
 @Table(name = "workschedule")
 public class WorkSchedule {
-	
-	@Id @GeneratedValue
+
+	@Id
+	@GeneratedValue
 	@Column(name = "idworkschedule")
+	@Expose
 	private int idWorkSchedule;
-	
+
 	@Column(name = "workday")
+	@Expose
 	private int workday;
-	
+
 	@Column(name = "starthour")
+	@Expose
 	private int startHour;
-	
+
 	@Column(name = "endhour")
+	@Expose
 	private int endHour;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "staff_idstaff", nullable = false)
+	@Expose(serialize = false)
 	private Staff staff;
-	
-	
 
 	public WorkSchedule() {
 		super();
@@ -89,9 +96,7 @@ public class WorkSchedule {
 	@Override
 	public String toString() {
 		return "WorkSchedule [idWorkSchedule=" + idWorkSchedule + ", workday=" + workday + ", startHour=" + startHour
-				+ ", endHour=" + endHour + ", staff=" + staff + "]";
+				+ ", endHour=" + endHour+ "]";
 	}
-	
-	
-	
+
 }

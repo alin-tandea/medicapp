@@ -1,0 +1,82 @@
+<h5>Edit your schedule<h5>
+<br><br>
+
+<table class="highlight">
+    <thead>
+        <tr>
+            <th>Day</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor = "let s of schedule">
+            <td>
+                <div *ngIf = "s.workday == 1">
+                    Monday
+                </div>
+                <div *ngIf = "s.workday == 2">
+                    Tuesday
+                </div>
+                <div *ngIf = "s.workday == 3">
+                    Wednesday
+                </div>
+                <div *ngIf = "s.workday == 4">
+                    Thursday
+                </div>
+                <div *ngIf = "s.workday == 5">
+                    Friday
+                </div>
+                <div *ngIf = "s.workday == 6">
+                    Saturday
+                </div>
+                <div *ngIf = "s.workday == 7">
+                    Sunday
+                </div>
+            </td>
+            <td>
+                <div *ngIf = "!show[s.workday]"> 
+                    <div *ngIf = "s.startHour == -1">
+                        Undefined
+                    </div>
+                    <div *ngIf = "s.startHour != -1">
+                        {{s.startHour}}
+                    </div>
+                </div>
+                <div *ngIf = "show[s.workday]"> 
+                     <input type="number"  id="name"
+                            required
+                         [(ngModel)]="s.startHour" name="name">
+                </div>    
+                
+            </td>
+            
+            <td>
+                <div *ngIf = "!show[s.workday]"> 
+                    <div *ngIf = "s.endHour == -1">
+                        Undefined
+                    </div>
+                    <div *ngIf = "s.endHour != -1">
+                        {{s.endHour}}
+                    </div>
+                </div>
+                <div *ngIf = "show[s.workday]">
+                        <input type="number"  id="name"
+                            required
+                         [(ngModel)]="s.endHour" name="name">
+                </div>
+            </td>
+
+            <td>
+                <div *ngIf = "!show[s.workday]"> 
+                    <button class="btn waves-effect waves-light" (click)="show[s.workday] = !show[s.workday]">Edit</button>
+                </div>
+                <div *ngIf = "show[s.workday]"> 
+                    <button class="btn waves-effect waves-light" (click)="save(s)">Save</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

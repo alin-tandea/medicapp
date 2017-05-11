@@ -12,6 +12,7 @@ import { PatientModule } from "./patients/patient.module"
 import { StaffModule } from "./staff-accounts/staff.module"
 import { routing } from './app.routing';
 import { ConsultationModule } from "./consultation/consultation.module"
+import { MedicModule } from "./medic/medic.module"
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ConsultationModule } from "./consultation/consultation.module"
     BrowserModule,
     FormsModule,
     StaffModule,
+    MedicModule,
     PatientModule,
     ConsultationModule,
     LoadingAnimateModule,

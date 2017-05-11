@@ -39,15 +39,26 @@ public class WorkScheduleDAOImpl implements WorkScheduleDAO{
 
 
 	@Override
-	public WorkSchedule getSchedule(int idstaff, int workday) {
-		// TODO Auto-generated method stub
-		return null;
+	public WorkSchedule getSchedule(int id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		WorkSchedule w = session.get(WorkSchedule.class, id);
+		tx.commit();
+		return w;
 	}
 
 
 	@Override
 	public void updateSchedule(int idWorkSchedule, int day, int startHour, int endHour) {
-		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		WorkSchedule w = session.get(WorkSchedule.class, idWorkSchedule);
+		System.out.println("id = " + idWorkSchedule + "  " + w);
+		w.setWorkday(day);
+		w.setStartHour(startHour);
+		w.setEndHour(endHour);
+		session.save(w);
+		tx.commit();
 		
 	}
 
@@ -67,7 +78,6 @@ public class WorkScheduleDAOImpl implements WorkScheduleDAO{
 		session.save(s);
 		session.save(w);
 		tx.commit();
-		
 	}
 	
 	

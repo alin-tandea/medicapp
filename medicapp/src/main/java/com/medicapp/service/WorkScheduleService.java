@@ -17,4 +17,12 @@ public class WorkScheduleService {
 	public static List<WorkSchedule> getEntireSchedule(int idstaff){
 		return w.getEntireSchedule(idstaff);
 	}
+	
+	public static WorkSchedule getSchedule(int idworkschedule){
+		return w.getSchedule(idworkschedule);
+	}
+	
+	public static void updateWorkSchedule( WorkSchedule work){
+		w.updateSchedule(work.getIdWorkSchedule(), work.getWorkday(), work.getStartHour(), work.getEndHour());
+	}
 }

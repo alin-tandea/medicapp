@@ -85,7 +85,7 @@ public class Staff {
 	@Override
 	public String toString() {
 		return "Staff [idstaff=" + idstaff + ", name=" + name + ", username=" + username + ", password=" + password
-				+ ", role=" + role + ", workdays=" + workdays + ", consultations=" + consultations + "]";
+				+ ", role=" + role;
 	}
 
 

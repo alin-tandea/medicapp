@@ -16,7 +16,18 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		System.out.println(WorkScheduleService.getEntireSchedule(1));
+		Staff s = new Staff();
+		s.setName("name");
+		s.setUsername("name");
+		s.setPassword("test");
+		s.setRole(1);
+		StaffService.addStaff(s);
+		
+		WorkSchedule w = new WorkSchedule();
+		w.setWorkday(1);
+		w.setStartHour(2);
+		w.setEndHour(3);
+		WorkScheduleService.addWorkSchedule(w, 1);
 	}
 
 }

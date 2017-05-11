@@ -50,6 +50,7 @@ public class AccountController {
 			StaffService.addStaff(s);
 			return Response.ok().build();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return Response.status(400).build();
 		}
 	}
@@ -77,6 +78,7 @@ public class AccountController {
 			StaffService.deleteAccount(idstaff);
 			return Response.ok().build();
 		}catch(Exception e){
+			e.printStackTrace();
 			return Response.status(400).build();
 		}
 	}

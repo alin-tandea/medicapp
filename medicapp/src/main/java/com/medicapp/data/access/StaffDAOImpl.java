@@ -2,6 +2,7 @@ package com.medicapp.data.access;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,6 +10,8 @@ import org.hibernate.Transaction;
 
 import com.medicapp.data.HibernateUtil;
 import com.medicapp.data.model.Staff;
+import com.medicapp.data.model.WorkSchedule;
+import com.medicapp.service.WorkScheduleService;
 
 public class StaffDAOImpl implements StaffDAO {
 
@@ -28,9 +31,19 @@ public class StaffDAOImpl implements StaffDAO {
 		s.setUsername(username);
 		s.setPassword(password);
 		s.setRole(role);
-		session.save(s);
+		Integer id = (Integer) session.save(s);
 		tx.commit();
 		session.close();
+		if (role == 1) {
+			for (int i = 1; i < 8; i++) {
+				WorkSchedule[] w = new WorkSchedule[8];
+				w[i] = new WorkSchedule();
+				w[i].setWorkday(i);
+				w[i].setStartHour(-1);
+				w[i].setEndHour(-1);
+				WorkScheduleService.addWorkSchedule(w[i], id.intValue());
+			}
+		}
 	}
 
 	@Override
