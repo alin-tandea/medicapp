@@ -48,6 +48,20 @@ public class AccountController {
 		return Response.status(200).entity(gson.toJson(StaffService.searchByName(name))).build();
 
 	}
+	
+	@GET
+	@Path("/disable/{id}")
+	public Response disableAccount(@PathParam("id")int idstaff){
+		StaffService.updateRole(idstaff, -1);
+		return Response.ok().build();
+	}
+	
+	@GET
+	@Path("/enable/{id}")
+	public Response enableAccount(@PathParam("id")int idstaff){
+		StaffService.updateRole(idstaff, 1);
+		return Response.ok().build();
+	}
 
 	@GET
 	@Path("/login/{credentials}")

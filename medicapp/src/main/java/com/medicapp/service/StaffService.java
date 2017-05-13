@@ -32,6 +32,11 @@ public class StaffService {
 		return null;
 	}
 	
+	public static void updateRole(int idstaff , int role){
+		Staff s = getStaff(idstaff);
+		sd.updateStaff(idstaff, s.getName(), s.getUsername(), s.getPassword(), role);
+	}
+	
 	public static void updateStaff(int idstaff ,Staff s){
 		sd.updateStaff(idstaff, s.getName(), s.getUsername(), s.getPassword(), s.getRole());
 	}

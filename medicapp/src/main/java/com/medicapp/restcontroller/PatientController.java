@@ -1,7 +1,7 @@
 package com.medicapp.restcontroller;
 
 
-import java.lang.reflect.Modifier;
+
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -21,7 +21,7 @@ import com.medicapp.service.PatientService;
 @Path("/patients")
 public class PatientController {
 	
-	private Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
+	private Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 	
 	@GET
 	@Path("/all")

@@ -17,7 +17,7 @@ import com.medicapp.service.WorkScheduleService;
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println(StaffService.verifyLogIn("me0dic", "123456"));
+		System.out.println(ConsultationService.getConsultations(20));
 	}
 
 }

@@ -31,7 +31,7 @@ public class ConsultationDAOImpl implements ConsultationDAO {
 		Patient p = (Patient) session.get(Patient.class, idpatient);
 		Staff s = session.get(Staff.class, idstaff);
 		c.setPatient(p);
-		c.setStatus(0); // 0 - means not completed
+		c.setStatus(0); // 0 - means not at hospital
 		c.setPatientName(p.getName());
 		c.setStaff(s);
 		p.getConsultations().add(c);
@@ -55,18 +55,8 @@ public class ConsultationDAOImpl implements ConsultationDAO {
 		Date d = new Date();
 		c.setDateend(d);
 		c.setReason(reason);
-		c.setStatus(1); // 1 - means completed
-		c.getPatient().getConsultations().stream().filter(cons -> cons.getIdconsultation() == idconsultation)
-				.findFirst().get().setDateend(d);
-		c.getPatient().getConsultations().stream().filter(cons -> cons.getIdconsultation() == idconsultation)
-				.findFirst().get().setReason(reason);
-		c.getStaff().getConsultations().stream().filter(cons -> cons.getIdconsultation() == idconsultation).findFirst()
-				.get().setDateend(d);
-		c.getStaff().getConsultations().stream().filter(cons -> cons.getIdconsultation() == idconsultation).findFirst()
-				.get().setReason(reason);
+		c.setStatus(2); // 2 - means completed
 		session.update(c);
-		session.update(c.getPatient());
-		session.update(c.getStaff());
 		tx.commit();
 		session.close();
 
@@ -102,10 +92,14 @@ public class ConsultationDAOImpl implements ConsultationDAO {
 		Transaction tx = session.beginTransaction();
 		Patient p = (Patient) session.get(Patient.class, idpatient);
 		tx.commit();
-		session.close();
-		System.out.println(p);
+		//System.out.println(p);
 		if (p != null) {
-			return new ArrayList<Consultation>(p.getConsultations());
+			ArrayList<Consultation> cons = new ArrayList<Consultation>(p.getConsultations());
+			for (Consultation c : cons) {
+				c.setPatientName(c.getPatient().getName());
+			}
+			session.close();
+			return cons;
 		} else {
 			return null;
 		}

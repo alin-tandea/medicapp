@@ -7,32 +7,40 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.gson.annotations.Expose;
+
 @XmlRootElement
 @Entity
 @Table(name = "patient")
 public class Patient {
 	
 	@Id @GeneratedValue
+	@Expose
 	@Column(name = "idpatient")
 	private int idpatient;
 	
 	@Column(name = "name")
+	@Expose
 	private String name;
 	
 	@Column(name = "idcardnumber")
+	@Expose
 	private String idcardNumber;
 	
 	@Column(name = "cnp")
+	@Expose
 	private String cnp;
 	
 	@Column(name = "birthdate")
+	@Expose
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date birthdate;
 	
 	@Column(name = "address")
+	@Expose
 	private String address;
 	
-	@Transient
+	@Expose(serialize = false)
 	@OneToMany(fetch = FetchType.LAZY , mappedBy = "patient")
 	private Set<Consultation> consultations = new HashSet<Consultation>(0);
 

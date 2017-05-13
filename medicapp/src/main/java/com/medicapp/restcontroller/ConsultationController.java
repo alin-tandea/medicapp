@@ -33,6 +33,12 @@ public class ConsultationController {
 	}
 
 	@GET
+	@Path("/patient/{id}")
+	public Response getPatientConsultations(@PathParam("id") int id){
+		return Response.status(200).entity(gson.toJson(ConsultationService.getConsultations(id))).build();
+	}
+	
+	@GET
 	@Path("/date/{day}/{month}/{year}")
 	public Response getTodayConsultation(@PathParam("day") int day, @PathParam("month") int month,
 			@PathParam("year") int year) {
@@ -59,6 +65,13 @@ public class ConsultationController {
 				date.getMonth() +1, date.getYear()+1900))).build();
 	}
 
+	@GET
+	@Path("/medic/complete/{id}/{reason}")
+	public Response completeConsult(@PathParam("id")int id , @PathParam("reason") String reason){
+		ConsultationService.completeConsultation(id, reason);
+		return Response.ok().build();
+	}
+	
 	@GET
 	@Path("/checkin/{id}")
 	public Response checkIn(@PathParam("id") int id) {
