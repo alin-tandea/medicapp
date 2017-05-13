@@ -6,7 +6,7 @@
             <th>Username</th>
             <th>Role</th>
             <th>Edit</th>
-            <th>Delete</th>
+            <th>Delete/Disable</th>
         </tr>
     </thead>
 
@@ -16,6 +16,9 @@
             <td>{{staff.name}}</td>
             <td>{{staff.username}}</td>
             <td>
+                <div *ngIf = "staff.role == -1">
+                    Account Disabled
+                </div>
                 <div *ngIf = "staff.role == 0">
                     admin
                 </div>
@@ -32,10 +35,23 @@
                 </a>    
             </td>
             <td>
+                <div *ngIf = "staff.role != 1 && staff.role != -1">
                 <a (click) = "deleteAccount(staff)" href="/staff"> 
                     <i class="material-icons">delete_sweep</i>
                 </a> 
+                </div>
+                <div *ngIf = "staff.role == 1">
+                    <a (click) = "disableAccount(staff)" href="/staff"> 
+                    <i class="material-icons">lock</i>
+                </a> 
+                </div>
+               <div *ngIf = "staff.role == -1">
+                <a (click) = "enableAccount(staff)" href="/staff"> 
+                    <i class="material-icons">lock_open</i>
+                </a> 
+            </div>
             </td>
+
         </tr>
     </tbody>
 </table>

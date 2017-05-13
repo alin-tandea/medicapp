@@ -8,7 +8,8 @@ import { WorkService } from './work.service'
 import { WorkComponent } from './work.component'
 import { ConsultationService } from "../consultation/consultation.service"
 import {MaterializeDirective} from "angular2-materialize";
-
+import { PatientService } from "../patients/patient.service"
+import { MedicConsult } from "../medic/medic-consult-view.component"
 
 @NgModule({
     imports:[
@@ -20,12 +21,14 @@ import {MaterializeDirective} from "angular2-materialize";
     ],
     declarations: [
             WorkComponent,
+            MedicConsult
     ],
     exports: [
             WorkComponent,
+            MedicConsult
     ],
     providers: [
-            WorkService , ConsultationService
+            WorkService , ConsultationService , PatientService
     ]         
 })
 

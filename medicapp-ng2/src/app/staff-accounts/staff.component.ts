@@ -22,12 +22,31 @@ export class StaffComponent implements OnInit{
                 console.log(this.staffAccounts);
             })
     }
-    deleteAccount(account){
-        if (confirm("Are you sure you want to delete " + account.username + "?")){
+
+    disableAccount(account){
+          if (confirm("You can only disable a medic account  . Are you sure you want to disable :  " + account.username + "?")){
             var index = account.idstaff;
-            this._staffService.deleteAccount(index)
+                this._staffService.disableAccount(index)
+                .subscribe(null)
+            } 
+    }
+    enableAccount(account){
+          if (confirm("Are you sure you want to enable :  " + account.username + "?")){
+            var index = account.idstaff;
+                this._staffService.enableAccount(index)
+                .subscribe(null)
+            } 
+    }
+    deleteAccount(account){
+        if(account.role != 1){
+
+        }
+            if (confirm("Are you sure you want to delete " + account.username + "?")){
+            var index = account.idstaff;
+                this._staffService.deleteAccount(index)
                 .subscribe(null
-          )
-        } 
+                )
+            } 
+        
     }  
 }

@@ -38,6 +38,8 @@ export class ConsultationService{
         return this._http.get(this.url + "/date/" + day)
             .map(res => res.json())
     }
+	
+
 
     checkIn(id){
         return this._http.get(this.url + "/checkin/" + id)
@@ -47,5 +49,9 @@ export class ConsultationService{
     getTodayConsultations(){
         return this._http.get(this.url + "/date/current")
             .map(res =>res.json())
+    }
+    getConsultationsPatient(id){
+        return this._http.get(this.url + "/patient/" + id)
+            .map(res=>res.json())
     }
 }

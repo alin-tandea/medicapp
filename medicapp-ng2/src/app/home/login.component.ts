@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
         this.loading = true;
         console.log(this.model)
         this.authenticationService.login(this.model.username, this.model.password)
-            .subscribe(result => {
+            .subscribe((result) => {
                 if (result === true) {
                     // login successful
                     this.accType = localStorage.getItem('accountType');
@@ -46,10 +46,17 @@ export class LoginComponent implements OnInit {
                         this.router.navigate(['patients'])
                     }
                     // login failed
+                    
+                }else{
                     this.error = 'Username or password is incorrect';
                     alert(this.error);
                     this.loading = false;
                 }
+            },
+            (err)=>{
+                    this.error = 'Username or password is incorrect';
+                    alert(this.error);
+                    this.loading = false;
             });
     }
 }

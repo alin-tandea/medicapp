@@ -40,4 +40,12 @@ export class StaffService{
         return this._http.delete(this.url + "/delete/" + id)
             .map(res => res)
     }
+    disableAccount(id){
+        return this._http.get(this.url + "/disable/" + id)
+            .map(res => res)
+    }
+    enableAccount(id){
+        return this._http.get(this.url + "/enable/" + id)
+            .map(res => res)
+    }
 }

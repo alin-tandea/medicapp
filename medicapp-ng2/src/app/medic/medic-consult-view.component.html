@@ -1,0 +1,81 @@
+<div class="input-field col s12">
+    <br>
+        <input id="name" type="text" [(ngModel)]="searchParameter">     
+        <label for="name">
+          Search input
+        </label>
+
+        <br>
+</div>
+<button class="btn waves-effect waves-light"  type="submit" name = "action" (click)="search()">
+ Search
+</button>
+<br><br><br><br>
+<div *ngIf = "active">
+<button class="btn waves-effect waves-light"  type="submit" name = "action" (click)="active = !active">
+ Search
+</button>
+    <table class="highlight">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Id Card</th>
+            <th>CNP</th>
+            <th>Birthdate</th>
+            <th>Address</th>
+            <th>See Consultations</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor = "let patient of patients">
+            <td>{{patient.idpatient}}</td>
+            <td>{{patient.name}}</td>
+            <td>{{patient.idcardNumber}}</td>
+            <td>{{patient.cnp}}</td>
+            <td>{{patient.birthdate}}</td>
+            <td>{{patient.address}}</td>
+            <td>
+                <a (click) = "seeConsult(patient.idpatient)"> 
+                    <i class="material-icons">perm_contact_calendar</i>
+                </a>    
+            </td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+<div *ngIf = "!active">
+     <br><br>
+<table class="highlight">
+    <thead>
+        <tr>
+            <th>Patient name</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Reason</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor = "let cons of consultations">
+            <td>{{cons.patientName}}</td>
+            <td>{{cons.datestart}}</td>
+            <td>
+                <div *ngIf = "cons.status == 0" >
+                    Not Arrived
+                </div>
+                <div *ngIf = "cons.status == 1" >
+                    Arrived
+                </div>
+            </td>
+            <td>
+                {{cons.reason}}
+            </td>
+
+
+        </tr>
+    </tbody>
+</table>
+</div>

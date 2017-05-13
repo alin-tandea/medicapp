@@ -35,8 +35,8 @@ export class MedicComponent implements OnInit{
             this.id = id;
             console.log(id)
             });
-            Observable.interval(5000).switchMap(()=>
-                this._http.get("http://localhost:8080/medicapp/consultations/medic/" +this.id )
+            Observable.interval(2000).switchMap(()=>
+                this._http.get("http://localhost:8080/medicapp/consultations/medic/" + this.id )
                                             .map(res => res.json()))
                                 .subscribe((data) => {
                 this.consultations = data
@@ -55,6 +55,10 @@ export class MedicComponent implements OnInit{
                 console.log(this.consultations)
             })*/
     }
+	
+	save(){
+		
+	}
 
     checkDate(){
         console.log(this.datepicker)
