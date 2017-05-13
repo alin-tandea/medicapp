@@ -20,9 +20,9 @@ public class ConsultationService {
 	private static boolean validateConsultation(Date date, int idstaff) {
 		int weekday = date.getDay();
 		WorkSchedule schedule = ws.getSpecificDaySchedule(idstaff, weekday);
-		//System.out.println(schedule + " hours = " + date.getHours());
-		
-		//cant add an appointment if the doctor doesent work that day
+		System.out.println(schedule + " hours = " + date.getHours());
+
+		// cant add an appointment if the doctor doesent work that day
 		if (schedule != null) {
 			if (date.getHours() < schedule.getStartHour() || date.getHours() > schedule.getEndHour()) {
 				return false;
@@ -33,14 +33,21 @@ public class ConsultationService {
 
 		// cant add appointments in the past
 		Date currentDate = new Date();
-		if(currentDate.after(date)){
-			return false;
+		if (!(currentDate.getDate() == date.getDate())) {
+			if (!(currentDate.getYear() == date.getYear())) {
+				if (!(currentDate.getMonth() == date.getMonth())) {
+					if (currentDate.after(date)) {
+						return false;
+					}
+				}
+			}
 		}
-		
-		
-		//cant schedule two appointments at the same time
-		List<Consultation> todayConsultation = getTodayConsultationMedic(idstaff, date.getDate() , date.getMonth() +1, date.getYear()+1900);
-		//System.out.println(date.getDate() +"/"+ date.getMonth() +"/"+ date.getYear());
+
+		// cant schedule two appointments at the same time
+		List<Consultation> todayConsultation = getTodayConsultationMedic(idstaff, date.getDate(), date.getMonth() + 1,
+				date.getYear() + 1900);
+		// System.out.println(date.getDate() +"/"+ date.getMonth() +"/"+
+		// date.getYear());
 		System.out.println(todayConsultation);
 		if (todayConsultation != null) {
 			for (Consultation cons : todayConsultation) {
@@ -85,10 +92,9 @@ public class ConsultationService {
 
 	}
 
-
 	@SuppressWarnings("deprecation")
 	public static ArrayList<Consultation> getTodayConsultationMedic(int idstaff, int day, int month, int year) {
-		System.out.println(day+"/"+month + "/" + year);
+		System.out.println(day + "/" + month + "/" + year);
 		return (ArrayList<Consultation>) cd.getConsultationsMedic(idstaff).stream().filter(c -> {
 			if (c.getDatestart().getDate() == day && c.getDatestart().getMonth() == (month - 1)
 					&& (c.getDatestart().getYear() + 1900) == year) {

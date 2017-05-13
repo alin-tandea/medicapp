@@ -39,7 +39,10 @@ export class ConsultationService{
             .map(res => res.json())
     }
 	
-
+    completeConsult(id , obs){
+        return this._http.put("http://localhost:8080/medicapp/consultations/medic/complete/" + id, JSON.stringify(obs), {headers: this.headers})
+            .map(res => res)
+    }
 
     checkIn(id){
         return this._http.get(this.url + "/checkin/" + id)

@@ -2,12 +2,14 @@ package com.medicapp.restcontroller;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.medicapp.data.model.ConsultCompleteWrapper;
 import com.medicapp.data.model.ConsultationWrapper;
 import com.medicapp.service.ConsultationService;
 
@@ -65,10 +67,11 @@ public class ConsultationController {
 				date.getMonth() +1, date.getYear()+1900))).build();
 	}
 
-	@GET
-	@Path("/medic/complete/{id}/{reason}")
-	public Response completeConsult(@PathParam("id")int id , @PathParam("reason") String reason){
-		ConsultationService.completeConsultation(id, reason);
+	@PUT
+	@Path("/medic/complete/{id}")
+	public Response completeConsult(@PathParam("id")int id , ConsultCompleteWrapper cons){
+		System.out.println(cons);
+		ConsultationService.completeConsultation(id, cons.getObservations());
 		return Response.ok().build();
 	}
 	

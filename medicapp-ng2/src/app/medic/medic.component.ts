@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch'; 
 import { Observable } from 'rxjs/Rx';
+import { ConsultCompleteWrapper } from "./consult-wrap"
 
 @Component({
     selector : 'med-comp',
@@ -20,11 +21,14 @@ import { Observable } from 'rxjs/Rx';
 export class MedicComponent implements OnInit{
     show : any[] = [];
     consultations : Consultation[] = [];
+    consultation : Consultation;
     searchParameter :any;
     radioButtonValue :any = 1;
     data_item;
     id;
     datepicker;
+    active = false;
+    reason : ConsultCompleteWrapper = new ConsultCompleteWrapper();
     constructor(
         private _http : Http,
         private _router : Router,
@@ -55,9 +59,17 @@ export class MedicComponent implements OnInit{
                 console.log(this.consultations)
             })*/
     }
+
+    consult(cons){
+        this.consultation = cons;
+        this.active = true;
+    }
 	
-	save(){
-		
+	save(id){
+        console.log(this.reason);
+		this._consultationService.completeConsult(this.consultation.idconsultation , this.reason)
+            .subscribe(data => this.data_item = data);
+        this.active = false;
 	}
 
     checkDate(){

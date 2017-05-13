@@ -10,6 +10,7 @@ import { ConsultationService } from "../consultation/consultation.service"
 import {MaterializeDirective} from "angular2-materialize";
 import { PatientService } from "../patients/patient.service"
 import { MedicConsult } from "../medic/medic-consult-view.component"
+import { ConsultCompletePage } from "./consult-page"
 
 @NgModule({
     imports:[
@@ -21,11 +22,13 @@ import { MedicConsult } from "../medic/medic-consult-view.component"
     ],
     declarations: [
             WorkComponent,
-            MedicConsult
+            MedicConsult,
+            ConsultCompletePage
     ],
     exports: [
             WorkComponent,
-            MedicConsult
+            MedicConsult,
+            ConsultCompletePage
     ],
     providers: [
             WorkService , ConsultationService , PatientService

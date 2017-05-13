@@ -61,7 +61,7 @@ public class StaffDAOImpl implements StaffDAO {
 		tx.commit();
 		session.close();
 		if (role == 1) {
-			for (int i = 1; i < 8; i++) {
+			for (int i = 0; i < 7; i++) {
 				WorkSchedule[] w = new WorkSchedule[8];
 				w[i] = new WorkSchedule();
 				w[i].setWorkday(i);
