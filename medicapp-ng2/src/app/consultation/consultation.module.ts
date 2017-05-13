@@ -10,6 +10,7 @@ import { ConsultationComponent } from "./consultation.component"
 import { ConsultationFormComponent } from "./consultation-form.component"
 import { MedicComponent } from '../medic/medic.component'
 import { MedicOtherComponent } from "../medic/medic-other.component"
+import { WorkService } from "../medic/work.service"
 
 @NgModule({
     imports:[
@@ -33,7 +34,7 @@ import { MedicOtherComponent } from "../medic/medic-other.component"
             MedicOtherComponent
     ],
     providers: [
-            ConsultationService
+            ConsultationService  , WorkService
     ]         
 })
 

@@ -20,7 +20,10 @@ export class WorkService{
             .map(res => res.json())
     }
 
-
+    getMedicScheduleDay(id , date){
+        return this._http.get(this.url + "/medic/" + id + "/" + date)
+            .map(res =>res.json())
+    }
 
     getSchedule(id){
         return this._http.get(this.url + "/" + id)

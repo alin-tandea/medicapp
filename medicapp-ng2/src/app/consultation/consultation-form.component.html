@@ -67,7 +67,12 @@
 
     <tbody>
         <tr *ngFor = "let medic of medics">
-            <td>{{medic.name}}</td>
+            <td>{{medic.name}}
+                <div *ngIf = "medicSelect[medic.idstaff]">
+                    <br>This medic works from {{schedule.startHour}}:00 to {{schedule.endHour}}:00 on {{datepicker}} 
+                </div>
+
+            </td>
             <td>
                   <button class="btn waves-effect waves-light" (click)="select(medic)">Select</button>
             </td>

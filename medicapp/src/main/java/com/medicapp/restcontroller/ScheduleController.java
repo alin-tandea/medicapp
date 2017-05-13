@@ -1,7 +1,5 @@
 package com.medicapp.restcontroller;
 
-
-
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -16,41 +14,48 @@ import com.medicapp.service.WorkScheduleService;
 
 @Path("/schedule")
 public class ScheduleController {
-	
+
 	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-	
+
 	@GET
 	@Path("/medic/{id}")
-	public Response getMedicSchedule(@PathParam("id") int idstaff){
+	public Response getMedicSchedule(@PathParam("id") int idstaff) {
 		return Response.status(200).entity(gson.toJson(WorkScheduleService.getEntireSchedule(idstaff))).build();
 	}
-	
+
 	@GET
 	@Path("/{id}")
-	public Response getSchedule(@PathParam("id")int id){
+	public Response getSchedule(@PathParam("id") int id) {
 		return Response.status(200).entity(gson.toJson(WorkScheduleService.getSchedule(id))).build();
 	}
-	
+
+	@GET
+	@Path("/medic/{id}/{day}/{month}/{year}")
+	public Response getMedicScheduleDay(@PathParam("id") int id,@PathParam("day") int day,@PathParam("month")  int month,@PathParam("year") int year){
+		System.out.println(day+"/"+month+"/"+year);
+		return Response.status(200).entity(gson.toJson(WorkScheduleService.getScheduleDay(id, day, month, year))).build();
+	}
+
 	@PUT
 	@Path("/update")
-	public Response updateSchedule(WorkSchedule w){
+	public Response updateSchedule(WorkSchedule w) {
 		System.out.println(w);
-		try{
+		try {
 			WorkScheduleService.updateWorkSchedule(w);
 			return Response.status(200).build();
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.status(400).build();
 		}
 	}
-	
+
 	@POST
 	@Path("/new/{id}")
-	public Response addSchedule(@PathParam("id") int idstaff , WorkSchedule w){
-		try{
+	public Response addSchedule(@PathParam("id") int idstaff, WorkSchedule w) {
+		try {
 			WorkScheduleService.addWorkSchedule(w, idstaff);
 			return Response.ok().build();
-		}catch(Exception e){
+		} catch (Exception e) {
 			return Response.status(400).build();
 		}
 	}

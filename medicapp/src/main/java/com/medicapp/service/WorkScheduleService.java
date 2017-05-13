@@ -1,5 +1,6 @@
 package com.medicapp.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.medicapp.data.access.WorkScheduleDAO;
@@ -16,6 +17,17 @@ public class WorkScheduleService {
 	
 	public static List<WorkSchedule> getEntireSchedule(int idstaff){
 		return w.getEntireSchedule(idstaff);
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static WorkSchedule getScheduleDay(int idstaff ,int day , int month , int year){
+		Date date = new Date();
+		date.setDate(day);
+		date.setMonth(month-1);
+		date.setYear(year  - 1900);
+		System.out.println(date);
+		int weekday = date.getDay();
+		return w.getSpecificDaySchedule(idstaff, weekday);
 	}
 	
 	public static WorkSchedule getSchedule(int idworkschedule){

@@ -9,7 +9,8 @@ import { Consultation } from './consultation';
 import { ConsultTime } from './consult-time'
 import { ConsultationService } from './consultation.service'
 import { Staff } from "../staff-accounts/staff"
-
+import { WorkSchedule } from "../medic/work"
+import { WorkService } from "../medic/work.service"
 
 @Component({
     selector : 'cons-form',
@@ -24,13 +25,16 @@ export class ConsultationFormComponent implements OnInit{
     radioButtonValue : number = 1;
     searchParameter : any;
     selectedMedic : Staff;
+    schedule : WorkSchedule;
     idPatient;
+    medicSelect : any[] = [];
     medics : Staff[] = [];
     constructor(
         _formBuilder : FormBuilder,
         private _router : Router,
         private _route : ActivatedRoute,
-        private _consultationService : ConsultationService
+        private _consultationService : ConsultationService,
+        private _workService : WorkService
     ){
         this.form = _formBuilder.group({
             date : ['' ,[
@@ -78,6 +82,12 @@ export class ConsultationFormComponent implements OnInit{
 
     select(medic){
         this.selectedMedic = medic;
+        this._workService.getMedicScheduleDay(medic.idstaff , this.datepicker)
+            .subscribe((data) => {
+                console.log(data);
+                this.schedule = data,
+                 this.medicSelect[medic.idstaff] = true;
+            })
         console.log(this.selectedMedic)
     }
 

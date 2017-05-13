@@ -20,7 +20,9 @@ public class ConsultationService {
 	private static boolean validateConsultation(Date date, int idstaff) {
 		int weekday = date.getDay();
 		WorkSchedule schedule = ws.getSpecificDaySchedule(idstaff, weekday);
-		System.out.println(schedule + " hours = " + date.getHours());
+		//System.out.println(schedule + " hours = " + date.getHours());
+		
+		//cant add an appointment if the doctor doesent work that day
 		if (schedule != null) {
 			if (date.getHours() < schedule.getStartHour() || date.getHours() > schedule.getEndHour()) {
 				return false;
@@ -29,10 +31,17 @@ public class ConsultationService {
 			return false;
 		}
 
-
-		List<Consultation> todayConsultation = getTodayConsultationMedic(idstaff, date.getDate() , date.getMonth() , date.getYear()+1900);
+		// cant add appointments in the past
+		Date currentDate = new Date();
+		if(currentDate.after(date)){
+			return false;
+		}
+		
+		
+		//cant schedule two appointments at the same time
+		List<Consultation> todayConsultation = getTodayConsultationMedic(idstaff, date.getDate() , date.getMonth() +1, date.getYear()+1900);
+		//System.out.println(date.getDate() +"/"+ date.getMonth() +"/"+ date.getYear());
 		System.out.println(todayConsultation);
-
 		if (todayConsultation != null) {
 			for (Consultation cons : todayConsultation) {
 				if ((cons.getDatestart().getHours() == date.getHours())
