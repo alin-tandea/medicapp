@@ -54,12 +54,15 @@ export class LoginComponent implements OnInit {
                 }else{
                     this.error = 'Username or password is incorrect';
                     alert(this.error);
+                    this.loadingService.setValue(false);
                     this.loading = false;
                 }
             },
             (err)=>{
                     this.error = 'Username or password is incorrect';
+                    this.loadingService.setValue(false);
                     alert(this.error);
+                    
                     this.loading = false;
             });
     }

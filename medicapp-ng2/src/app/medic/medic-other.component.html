@@ -10,7 +10,8 @@
 <br>
  <button class="btn waves-effect waves-light" (click)="checkDate()">Select</button>
 
- <br><br>
+<div *ngIf = "active">
+<br><br><br><br>
 <table class="highlight">
     <thead>
         <tr>
@@ -39,3 +40,4 @@
         </tr>
     </tbody>
 </table>
+</div>

@@ -21,7 +21,7 @@
             <div class="input-field col s12">
                 <input id="username" type="text" class="validate"
                     [(ngModel)]="staff.username" formControlName="username"
-                    [class.invalid]="form.controls['username'].touched && !form.controls['username'].valid">
+                    [class.invalid]="form.controls['username'].touched && !form.controls['username'].valid"  [attr.disabled]="active?false:null">
                 <label for="username"
                 [class.active]="staff.username"
                 data-error="Username is required and needs to contain at least 3 chars">
@@ -47,15 +47,15 @@
 
         <div class="row">
             <div class="col s3">
-                <input name="group" type="radio" id="1" [(ngModel)]="radioButtonValue" [value]="1" [ngModelOptions]="{standalone: true}"/>
+                <input name="group" type="radio" id="1" [(ngModel)]="radioButtonValue" [value]="1" [ngModelOptions]="{standalone: true}" [attr.disabled]="active?true:null"/>
                 <label for="1">Medic</label>
             </div>
             <div class="col s3">
-                <input name="group" type="radio" id="2" [(ngModel)]="radioButtonValue" [value]="2" [ngModelOptions]="{standalone: true}"/>
+                <input name="group" type="radio" id="2" [(ngModel)]="radioButtonValue" [value]="2" [ngModelOptions]="{standalone: true}" [attr.disabled]="active?true:null"/>
                 <label for="2">Secretary</label>
             </div>
             <div class="col s3">
-                <input name="group" type="radio" id="0" [(ngModel)]="radioButtonValue" [value]="0" [ngModelOptions]="{standalone: true}"/>
+                <input name="group" type="radio" id="0" [(ngModel)]="radioButtonValue" [value]="0" [ngModelOptions]="{standalone: true}" [attr.disabled]="active?true:null"/>
                 <label for="0">Admin</label>
             </div>
         </div> 

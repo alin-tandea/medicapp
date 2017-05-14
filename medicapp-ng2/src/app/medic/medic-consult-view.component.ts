@@ -18,6 +18,7 @@ export class MedicConsult implements OnInit{
     consultations : Consultation[] =[];
     searchParameter :any;
     active  = false;
+    activeCons = false;
      constructor(
          private _consultService : ConsultationService,
          private _patientService : PatientService){}
@@ -27,7 +28,7 @@ export class MedicConsult implements OnInit{
     }
 
     seeConsult(id){
-        this.active  = false;
+        this.activeCons  = true;
         this._consultService.getConsultationsPatient(id)
             .subscribe((data)=> {
                 this.consultations = data

@@ -25,6 +25,7 @@ export class MedicOtherComponent implements OnInit{
     data_item;
     id;
     datepicker;
+    active = false;
     constructor(
         private _http : Http,
         private _router : Router,
@@ -50,6 +51,7 @@ export class MedicOtherComponent implements OnInit{
         this._consultationService.getConsultationsMedic(this.id ,this.datepicker)
             .subscribe((data) => {
                 this.consultations = data
+                this.active = true;
                 console.log(this.consultations)
             })
     }

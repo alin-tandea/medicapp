@@ -15,6 +15,7 @@ export class StaffFormComponent implements OnInit{
     id : number;
     staff : Staff = new Staff();
     form : FormGroup;
+    active = false;
     radioButtonValue : number = 1;
     constructor(
         _formBuilder : FormBuilder,
@@ -48,6 +49,9 @@ export class StaffFormComponent implements OnInit{
                 this.id = id;
                 console.log(id);
                 this.title = id ? 'Edit account' : 'New account'
+                if(id){
+                    this.active = true
+                }
                 if(!id)return;
                 this._staffService.getAccount(id)
                     .subscribe(

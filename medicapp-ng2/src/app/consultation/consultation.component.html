@@ -11,6 +11,7 @@
  <button class="btn waves-effect waves-light" (click)="checkDate()">Select</button>
 
  <br><br>
+ <div *ngIf = "active">
 <table class="highlight">
     <thead>
         <tr>
@@ -31,11 +32,17 @@
                 <div *ngIf = "cons.status == 1" >
                     Arrived
                 </div>
+                 <div *ngIf = "cons.status == 2" >
+                    Completed
+                </div>
             </td>
+            <div *ngIf = "cons.status == 0" >
             <td>
-                <button class="btn waves-effect waves-light" (click)="checkIn(cons.idconsultation)">Check-in</button>
+                <button class="btn waves-effect waves-light"  (click)="checkIn(cons.idconsultation)" >Check-in</button>
             </td>
+            </div>
 
         </tr>
     </tbody>
 </table>
+ </div>

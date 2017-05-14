@@ -17,6 +17,7 @@ export class ConsultationComponent implements OnInit{
     searchParameter :any;
     radioButtonValue :any = 1;
     data_item;
+    active = false;
     datepicker;
     constructor(
         private _router : Router,
@@ -36,13 +37,23 @@ export class ConsultationComponent implements OnInit{
         this._consultationService.checkIn(id)
             .subscribe((res)=> {
                 console.log(res)
-                this._router.navigateByUrl('/consultations')
-                
-            })
+                this._router.navigate(['consultations'])
+                this._consultationService.getConsultationDate(this.datepicker)
+                    .subscribe((data) => {
+                    this.consultations = data
+                    console.log(this.consultations)
+                 })
+            },
+            (err)=>{
+                 this._router.navigate(['consultations'])
+            }
+            )
+            this._router.navigate(['consultations'])
             
     }
 
     checkDate(){
+        this.active =true;
         console.log(this.datepicker)
         this._consultationService.getConsultationDate(this.datepicker)
             .subscribe((data) => {
