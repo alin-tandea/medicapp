@@ -3,6 +3,7 @@ import {MaterializeDirective} from "angular2-materialize";
 
 import { Staff } from "./staff"
 import { StaffService } from "./staff.service"
+import { LoadingAnimateModule, LoadingAnimateService } from 'ng2-loading-animate';
 
 @Component({
     selector : 'acc-comp',
@@ -13,12 +14,15 @@ export class StaffComponent implements OnInit{
 
     staffAccounts : Staff[] = [];
 
-    constructor(private _staffService : StaffService){}
+    constructor(private _staffService : StaffService,
+                private loadService : LoadingAnimateService
+    ){}
 
     ngOnInit(){
         this._staffService.getAllAccounts()
             .subscribe((res) => {
                 this.staffAccounts = res;
+                this.loadService.setValue(false);
                 console.log(this.staffAccounts);
             })
     }

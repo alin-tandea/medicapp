@@ -3,7 +3,7 @@ import {MaterializeDirective} from "angular2-materialize";
 
 import { PatientService } from "./patient.service"
 import { Patient } from './patient'
-
+import { LoadingAnimateModule, LoadingAnimateService } from 'ng2-loading-animate';
 
 @Component({
     selector : 'patient-comp',
@@ -17,12 +17,14 @@ export class PatientComponent implements OnInit{
     searchParameter :any;
     radioButtonValue :any = 1;
     data_item;
-    constructor(private _patientService : PatientService){}
+    constructor(private _patientService : PatientService,
+                private loadService : LoadingAnimateService){}
 
     ngOnInit(){
         this._patientService.getAllPatients()
             .subscribe((patients) =>{ 
-                this.patients = patients
+                this.patients = patients,
+                this.loadService.setValue(false);
                 console.log(this.patients);
         });
     }

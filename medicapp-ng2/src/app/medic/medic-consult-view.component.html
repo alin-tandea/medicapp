@@ -12,9 +12,6 @@
 </button>
 <br><br><br><br>
 <div *ngIf = "active">
-<button class="btn waves-effect waves-light"  type="submit" name = "action" (click)="active = !active">
- Search
-</button>
     <table class="highlight">
 
     <thead>
@@ -54,7 +51,7 @@
             <th>Patient name</th>
             <th>Time</th>
             <th>Status</th>
-            <th>Reason</th>
+            <th>Consult observations</th>
         </tr>
     </thead>
 
@@ -68,6 +65,9 @@
                 </div>
                 <div *ngIf = "cons.status == 1" >
                     Arrived
+                </div>
+                <div *ngIf = "cons.status == 2" >
+                    Completed
                 </div>
             </td>
             <td>

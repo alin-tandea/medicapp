@@ -11,6 +11,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch'; 
 import { Observable } from 'rxjs/Rx';
 import { ConsultCompleteWrapper } from "./consult-wrap"
+import { LoadingAnimateModule, LoadingAnimateService } from 'ng2-loading-animate';
 
 @Component({
     selector : 'med-comp',
@@ -33,6 +34,7 @@ export class MedicComponent implements OnInit{
         private _http : Http,
         private _router : Router,
         private _route : ActivatedRoute,
+        private loadingService : LoadingAnimateService,
         private _consultationService : ConsultationService){
             var id = this._route.params.subscribe(params =>{
             var id = params['idStaff'];
@@ -49,6 +51,7 @@ export class MedicComponent implements OnInit{
 
 
     ngOnInit(){
+        this.loadingService.setValue(false);
        var id = this._route.params.subscribe(params =>{
             var id = params['idStaff'];
             this.id = id;

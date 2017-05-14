@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
  
 import { AuthenticationService } from './authentication.service'
  import {AuthGuard } from '../home/auth.guard';
+import { LoadingAnimateModule, LoadingAnimateService } from 'ng2-loading-animate';
 
 @Component({
     selector : 'login-comp',
@@ -18,16 +19,19 @@ export class LoginComponent implements OnInit {
     private accType;
     constructor(
         private router: Router,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private loadingService : LoadingAnimateService
         ) { }
  
     ngOnInit() {
+        this.loadingService.setValue(false);
         // reset login status
        this.authenticationService.logout();
     }
  
     login() {
         this.loading = true;
+        this.loadingService.setValue(true);
         console.log(this.model)
         this.authenticationService.login(this.model.username, this.model.password)
             .subscribe((result) => {

@@ -1,4 +1,4 @@
-<h5>Add a new consultation</h5><br><br>
+<h3>Add a new consultation</h3><br><br>
 
 <div class = "row">
     <form materialize class = "col s12" [formGroup] = "form">
@@ -56,7 +56,7 @@
                  Search
             </button>
     </div>     
-
+<div *ngIf = "searchActivate">
     <table class="highlight">
     <thead>
         <tr>
@@ -68,9 +68,6 @@
     <tbody>
         <tr *ngFor = "let medic of medics">
             <td>{{medic.name}}
-                <div *ngIf = "medicSelect[medic.idstaff]">
-                    <br>This medic works from {{schedule.startHour}}:00 to {{schedule.endHour}}:00 on {{datepicker}} 
-                </div>
 
             </td>
             <td>
@@ -79,6 +76,15 @@
         </tr>
     </tbody>
 </table>
+<div *ngIf = "schedule.startHour != -1">
+    <div *ngIf = "medSelect">
+        <br><h5>This medic works from {{schedule.startHour}} :00 to {{schedule.endHour}} :00 on {{datepicker}}</h5>
+    </div>
+</div>
+<div *ngIf = "schedule.startHour == -1">
+    <br><h5>Selected medic is not at the office on {{datepicker}} . Please schedule this appointment on another day</h5>
+</div>
+</div>
 <br><br>
         <button class="btn waves-effect waves-light" type="submit"
             [disabled]="!form.valid" (click) = "save()">

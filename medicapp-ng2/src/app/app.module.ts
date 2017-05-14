@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterializeModule } from 'angular2-materialize';
 import { LoadingAnimateModule, LoadingAnimateService } from 'ng2-loading-animate';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
 import { AppComponent } from './app.component';
@@ -33,9 +34,9 @@ import { SecretaryAuthGuard } from "./home/secretary-auth.guard"
     StaffModule,
     MedicModule,
     PatientModule,
-    
+    BrowserAnimationsModule,
     ConsultationModule,
-    LoadingAnimateModule,
+    LoadingAnimateModule.forRoot(),
     HttpModule,
     
     routing

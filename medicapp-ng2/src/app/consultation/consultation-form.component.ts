@@ -25,9 +25,11 @@ export class ConsultationFormComponent implements OnInit{
     radioButtonValue : number = 1;
     searchParameter : any;
     selectedMedic : Staff;
-    schedule : WorkSchedule;
+    schedule : WorkSchedule = new WorkSchedule();
+    searchActivate = false;
     idPatient;
     medicSelect : any[] = [];
+    medSelect = false;
     medics : Staff[] = [];
     constructor(
         _formBuilder : FormBuilder,
@@ -81,17 +83,18 @@ export class ConsultationFormComponent implements OnInit{
     }
 
     select(medic){
+        this.medSelect = true;
         this.selectedMedic = medic;
         this._workService.getMedicScheduleDay(medic.idstaff , this.datepicker)
             .subscribe((data) => {
                 console.log(data);
-                this.schedule = data,
-                 this.medicSelect[medic.idstaff] = true;
+                this.schedule = data
             })
         console.log(this.selectedMedic)
     }
 
     search(){
+        this.searchActivate = true;
         this._consultationService.searchMedic(this.searchParameter)
             .subscribe(res => this.medics = res)
     }
