@@ -15,7 +15,14 @@ some mock data with an account for each type of user .
 
 ### Mock user accounts
 
-///to be added later
+Account usernames : 
+	
+	*medic : "medic"
+	*administrator : "admin"
+	*secretary : "secretary"
+	
+
+All the above accounts use the same password : "123456"
 
 #### Backend server
 

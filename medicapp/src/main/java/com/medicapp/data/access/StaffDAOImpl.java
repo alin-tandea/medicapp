@@ -49,7 +49,7 @@ public class StaffDAOImpl implements StaffDAO {
 	}
 
 	@Override
-	public void addStaff(String name, String username, String password, int role) {
+	public int addStaff(String name, String username, String password, int role) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		Staff s = new Staff();
@@ -70,6 +70,7 @@ public class StaffDAOImpl implements StaffDAO {
 				WorkScheduleService.addWorkSchedule(w[i], id.intValue());
 			}
 		}
+		return id.intValue();
 	}
 
 	@Override
