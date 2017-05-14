@@ -38,7 +38,8 @@ public class StaffDAOImpl implements StaffDAO {
 		List<Staff> list = query.list();
 		if (list.size() > 0) {
 			session.close();
-			if (list.get(0).getRole() == -1) { // if the account is disabled the user cannot log in
+			if (list.get(0).getRole() == -1) { // if the account is disabled the
+												// user cannot log in
 				return -1;
 			} else {
 				return list.get(0).getIdstaff();
@@ -111,7 +112,11 @@ public class StaffDAOImpl implements StaffDAO {
 
 	@Override
 	public Staff getStaff(int idstaff) {
-		return getAllStaff().stream().filter(s -> s.getIdstaff() == idstaff).findFirst().get();
+		try {
+			return getAllStaff().stream().filter(s -> s.getIdstaff() == idstaff).findFirst().get();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 }
