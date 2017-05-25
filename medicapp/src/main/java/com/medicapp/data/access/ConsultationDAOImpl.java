@@ -110,10 +110,8 @@ public class ConsultationDAOImpl implements ConsultationDAO {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		Staff s = session.get(Staff.class, idstaff);
-		System.out.println("get cons medic = " + s);
 		tx.commit();
 		if (s != null) {
-			//System.out.println(s.getConsultations());
 			List<Consultation> cons = new ArrayList<Consultation>(s.getConsultations());
 			for (Consultation c : cons) {
 				c.setPatientName(c.getPatient().getName());

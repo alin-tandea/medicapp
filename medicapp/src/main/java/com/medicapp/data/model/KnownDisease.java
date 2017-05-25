@@ -23,7 +23,6 @@ public class KnownDisease {
 	@Expose
 	private int idKnownDisease;
 	
-	
 	@ManyToOne(fetch = FetchType.LAZY )
 	@Expose(serialize = false)
 	@JoinColumn(name = "patient_idpatient", nullable = false)
@@ -33,4 +32,42 @@ public class KnownDisease {
 	@Expose(serialize = false)
 	@JoinColumn(name = "disease_iddisease", nullable = false)
 	private Disease disease;
+
+	public int getIdKnownDisease() {
+		return idKnownDisease;
+	}
+
+	public void setIdKnownDisease(int idKnownDisease) {
+		this.idKnownDisease = idKnownDisease;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public Disease getDisease() {
+		return disease;
+	}
+
+	public void setDisease(Disease disease) {
+		this.disease = disease;
+	}
+
+	public KnownDisease(int idKnownDisease, Patient patient, Disease disease) {
+		super();
+		this.idKnownDisease = idKnownDisease;
+		this.patient = patient;
+		this.disease = disease;
+	}
+
+	public KnownDisease() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 }

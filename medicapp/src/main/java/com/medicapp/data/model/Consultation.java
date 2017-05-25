@@ -1,6 +1,9 @@
 package com.medicapp.data.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -49,12 +52,15 @@ public class Consultation {
 	private Staff staff;
 
 	
-
+	@Expose(serialize = false)
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "consultation")
+	private Set<Prescription> prescriptions = new HashSet<Prescription>(0);
 
 	
 
+
 	public Consultation(int idconsultation, Date datestart, Date dateend, String reason, int status, String patientName,
-			Patient patient, Staff staff) {
+			Patient patient, Staff staff, Set<Prescription> prescriptions) {
 		super();
 		this.idconsultation = idconsultation;
 		this.datestart = datestart;
@@ -64,6 +70,15 @@ public class Consultation {
 		this.patientName = patientName;
 		this.patient = patient;
 		this.staff = staff;
+		this.prescriptions = prescriptions;
+	}
+
+	public Set<Prescription> getPrescriptions() {
+		return prescriptions;
+	}
+
+	public void setPrescriptions(Set<Prescription> prescriptions) {
+		this.prescriptions = prescriptions;
 	}
 
 	public int getStatus() {

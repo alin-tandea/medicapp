@@ -65,6 +65,7 @@ public class ConsultationService {
 	}
 
 	public static void addConsultation(Date date, int idpatient, int idstaff) {
+		
 		if (validateConsultation(date, idstaff)) {
 			cd.addConsultation(date, idpatient, idstaff);
 		} else {

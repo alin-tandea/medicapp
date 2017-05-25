@@ -1,12 +1,15 @@
 package com.medicapp.data.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -30,10 +33,10 @@ public class Drug {
 	@Expose
 	private String price;
 	
-	@ManyToOne(fetch = FetchType.LAZY )
 	@Expose(serialize = false)
-	@JoinColumn(name = "prescription_idprescription", nullable = false)
-	private Prescription prescription;
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "drug")
+	private Set<Prescription> prescriptions = new HashSet<Prescription>(0);
+	
 
 	public int getIddrug() {
 		return iddrug;
@@ -59,20 +62,21 @@ public class Drug {
 		this.price = price;
 	}
 
-	public Prescription getPrescription() {
-		return prescription;
-	}
 
-	public void setPrescription(Prescription prescription) {
-		this.prescription = prescription;
-	}
-
-	public Drug(int iddrug, String name, String price, Prescription prescription) {
+	public Drug(int iddrug, String name, String price, Set<Prescription> prescriptions) {
 		super();
 		this.iddrug = iddrug;
 		this.name = name;
 		this.price = price;
-		this.prescription = prescription;
+		this.prescriptions = prescriptions;
+	}
+
+	public Set<Prescription> getPrescriptions() {
+		return prescriptions;
+	}
+
+	public void setPrescriptions(Set<Prescription> prescriptions) {
+		this.prescriptions = prescriptions;
 	}
 
 	public Drug() {

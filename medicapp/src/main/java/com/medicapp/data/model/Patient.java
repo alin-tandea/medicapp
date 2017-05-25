@@ -49,7 +49,7 @@ public class Patient {
 	private Set<Consultation> consultations = new HashSet<Consultation>(0);
 	
 	@Expose(serialize = false)
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "patient")
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "patient"  , cascade = CascadeType.ALL)
 	private Set<KnownDisease> knownDiseases = new HashSet<KnownDisease>(0);
 
 	@Expose(serialize = false)

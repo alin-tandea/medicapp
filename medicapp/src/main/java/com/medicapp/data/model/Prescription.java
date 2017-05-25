@@ -1,8 +1,6 @@
 package com.medicapp.data.model;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,9 +37,11 @@ public class Prescription {
 	@JoinColumn(name = "consultation_idconsultation", nullable = false)
 	private Consultation consultation;
 	
+	@ManyToOne(fetch = FetchType.LAZY )
 	@Expose(serialize = false)
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "prescpription")
-	private Set<Drug> drugList = new HashSet<Drug>(0);
+	@JoinColumn(name = "drug_iddrug", nullable = false)
+	private Drug drug;
+	
 
 	public int getIdprescription() {
 		return idprescription;
@@ -68,12 +67,13 @@ public class Prescription {
 		this.consultation = consultation;
 	}
 
-	public Set<Drug> getDrugList() {
-		return drugList;
+
+	public Drug getDrug() {
+		return drug;
 	}
 
-	public void setDrugList(Set<Drug> drugList) {
-		this.drugList = drugList;
+	public void setDrug(Drug drug) {
+		this.drug = drug;
 	}
 
 	public Prescription() {
@@ -81,13 +81,14 @@ public class Prescription {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Prescription(int idprescription, Date date, Consultation consultation, Set<Drug> drugList) {
+	public Prescription(int idprescription, Date date, Consultation consultation, Drug drug) {
 		super();
 		this.idprescription = idprescription;
 		this.date = date;
 		this.consultation = consultation;
-		this.drugList = drugList;
+		this.drug = drug;
 	}
-	
+
+
 	
 }
