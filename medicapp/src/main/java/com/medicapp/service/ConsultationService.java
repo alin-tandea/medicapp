@@ -10,6 +10,7 @@ import com.medicapp.data.access.ConsultationDAOImpl;
 import com.medicapp.data.access.WorkScheduleDAO;
 import com.medicapp.data.access.WorkScheduleDAOImpl;
 import com.medicapp.data.model.Consultation;
+import com.medicapp.data.model.Patient;
 import com.medicapp.data.model.WorkSchedule;
 
 public class ConsultationService {
@@ -109,6 +110,10 @@ public class ConsultationService {
 		return cd.getConsultationsMedic(idstaff);
 	}
 
+	public static Patient getPatient(int idconsultation){
+		return cd.getPatient(idconsultation);
+	}
+	
 	public static Consultation getConsultation(int idconsultation) {
 		return cd.getConsultation(idconsultation);
 	}

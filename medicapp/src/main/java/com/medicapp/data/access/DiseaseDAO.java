@@ -10,4 +10,5 @@ public interface DiseaseDAO {
 	Set<KnownDisease>getPatientDiseases(int idpatient);
 	List<Disease> getAllDiseases();
 	void addDisease(int idpatient , int iddisease);	
+	void deleteDisease(int idpatient , int iddisease);
 }

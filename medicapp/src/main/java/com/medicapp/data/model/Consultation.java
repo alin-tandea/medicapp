@@ -56,11 +56,15 @@ public class Consultation {
 	@OneToMany(fetch = FetchType.LAZY , mappedBy = "consultation")
 	private Set<Prescription> prescriptions = new HashSet<Prescription>(0);
 
+	@Expose(serialize = false)
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "consultation")
+	private Set<BloodTest> tests = new HashSet<BloodTest>(0);
+
+
 	
 
-
 	public Consultation(int idconsultation, Date datestart, Date dateend, String reason, int status, String patientName,
-			Patient patient, Staff staff, Set<Prescription> prescriptions) {
+			Patient patient, Staff staff, Set<Prescription> prescriptions, Set<BloodTest> tests) {
 		super();
 		this.idconsultation = idconsultation;
 		this.datestart = datestart;
@@ -71,6 +75,15 @@ public class Consultation {
 		this.patient = patient;
 		this.staff = staff;
 		this.prescriptions = prescriptions;
+		this.tests = tests;
+	}
+
+	public Set<BloodTest> getTests() {
+		return tests;
+	}
+
+	public void setTests(Set<BloodTest> tests) {
+		this.tests = tests;
 	}
 
 	public Set<Prescription> getPrescriptions() {

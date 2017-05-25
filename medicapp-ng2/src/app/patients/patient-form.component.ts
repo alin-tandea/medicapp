@@ -17,7 +17,9 @@ export class PatientFormComponent implements OnInit{
     form : FormGroup;
     title : string;
     private idClient;
-
+    radioButtonValue ;
+    radioButtonValueRH;
+    group = "";
     constructor(
         _formBuilder : FormBuilder,
         private _router : Router,
@@ -54,6 +56,25 @@ export class PatientFormComponent implements OnInit{
 
         });
     }
+
+    getBloodType(){
+        console.log(this.radioButtonValue)
+        if(this.radioButtonValue == 1){
+            this.group += "A";
+        }else if(this.radioButtonValue == 2){
+            this.group += "B";
+        }else if(this.radioButtonValue == 4){
+            this.group += "AB";
+        }else if(this.radioButtonValue == 0){
+            this.group += "O";
+        }
+console.log(this.radioButtonValueRH)
+        if(this.radioButtonValueRH == 5){
+            this.group+= "+";
+        }else if(this.radioButtonValueRH == 6){
+            this.group+= "-";
+        }
+    }
     ngOnInit(){
         var id = this._route.params.subscribe(params =>{
             var id = params['idPatient'];
@@ -73,6 +94,11 @@ export class PatientFormComponent implements OnInit{
 
         var result;
         this.patient = this.form.value;
+        this.getBloodType();
+        this.patient.bloodtype = this.group;
+        console.log(this.group);
+        console.log(JSON.stringify(this.patient))
+        this.group = "";
         if (this.idClient){
             result = this._patientService.updatePatient(this.idClient , this.patient);
         } else {

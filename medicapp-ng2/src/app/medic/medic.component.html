@@ -1,5 +1,5 @@
 <br><br><br><br>
-<div *ngIf = "!active">
+<div *ngIf = "!consPage">
 <h5>Appointments for today : </h5>
 
  <br><br>
@@ -48,9 +48,172 @@
     </tbody>
 </table>
 </div>
-<div *ngIf = "active">
+<div *ngIf = "showTest">
+    <div class = "row">
+    <form materialize class = "col s12" [formGroup] = "form" (ngSubmit)= "submitTest(bloodtest)">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="hgb" type="number" class="validate"
+                    [(ngModel)]="bloodtest.hgb" formControlName="hgb"
+                    [class.invalid]="form.controls['hgb'].touched && !form.controls['hgb'].valid">
+                <label for="hgb"
+                [class.active]="bloodtest.hgb"
+                data-error="Pleas enter the hgb value">
+                     HGB
+                </label>
+             </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="paletets" type="number" class="validate"
+                    [(ngModel)]="bloodtest.paletets" formControlName="paletets"
+                    [class.invalid]="form.controls['paletets'].touched && !form.controls['paletets'].valid">
+                <label for="paletets"
+                [class.active]="bloodtest.paletets"
+                data-error="Pleas enter the paletets value">
+                     Paletets
+                </label>
+             </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="vsh" type="number" class="validate"
+                    [(ngModel)]="bloodtest.vsh" formControlName="vsh"
+                    [class.invalid]="form.controls['vsh'].touched && !form.controls['vsh'].valid">
+                <label for="vsh"
+                [class.active]="bloodtest.vsh"
+                data-error="Pleas enter the vsh value">
+                     VSH
+                </label>
+             </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="tsh" type="number" class="validate"
+                    [(ngModel)]="bloodtest.tsh" formControlName="tsh"
+                    [class.invalid]="form.controls['tsh'].touched && !form.controls['tsh'].valid">
+                <label for="tsh"
+                [class.active]="bloodtest.tsh"
+                data-error="Pleas enter the tsh value">
+                     TSH
+                </label>
+             </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="mg" type="number" class="validate"
+                    [(ngModel)]="bloodtest.mg" formControlName="mg"
+                    [class.invalid]="form.controls['mg'].touched && !form.controls['mg'].valid">
+                <label for="mg"
+                [class.active]="bloodtest.mg"
+                data-error="Pleas enter the mg value">
+                     MG
+                </label>
+             </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="fe" type="number" class="validate"
+                    [(ngModel)]="bloodtest.fe" formControlName="fe"
+                    [class.invalid]="form.controls['fe'].touched && !form.controls['fe'].valid">
+                <label for="fe"
+                [class.active]="bloodtest.fe"
+                data-error="Pleas enter the fe value">
+                     FE
+                </label>
+             </div>
+        </div>
+
+        <button class="btn waves-effect waves-light" type="submit"
+            [disabled]="!form.valid">
+        Submit<i class="material-icons right">send</i>
+        </button>  
+         <button class="btn waves-effect waves-light" (click)="cancel()">Cancel</button>
+    </form>
+    </div>
+</div>
+<div *ngIf = "consPage">
     <br><br>
-    Patient name :   {{consultation.patientName}}
+    Patient id :   {{patient.idpatient}}
+    <br><br>
+    Name :   {{patient.name}}
+    <br><br>
+    Blood Type :   {{patient.bloodtype}}
+    <br><br>
+     Birthdate :   {{patient.birthdate}}
+    <br><br>
+    <button class="btn waves-effect waves-light" (click)="showBloodTest()">New Blood Test</button>
+    <button class="btn waves-effect waves-light" (click)="prescript()">New Prescription</button>
+    <button class="btn waves-effect waves-light" (click)="obs()">Add Observations</button>
+    <button class="btn waves-effect waves-light" (click)="diseasesShow()">Known Diseases</button>
+     <button class="btn waves-effect waves-light" (click)="cancel()">Cancel</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div *ngIf = "showDis">
+
+    <div class = "row">
+
+        <div class = "col s6">
+            <h5>Known diseases: </h5>
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Disease Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor = "let disease of patientDiseases">
+                        <td>{{disease.iddisease}}</td>
+                        <td>{{disease.name}}</td>
+                        <td>
+                            <button class="btn waves-effect waves-light"  (click)="deleteDisease(patient.idpatient,disease.iddisease)">Remove Disease</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class = "col s6">
+            <h5>Search and add a disease from here</h5>
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Disease Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor = "let disease of diseases">
+                        <td>{{disease.iddisease}}</td>
+                        <td>{{disease.name}}</td>
+                        <td>
+                            <button class="btn waves-effect waves-light" (click)="addDisease(patient.idpatient,disease.iddisease)">Add disease</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>     
+<div *ngIf = "active">
+
     <br><br>
   
 
@@ -58,7 +221,92 @@
     Consult observations : 
     <br><br>
    <input type="text"  id="name" required [(ngModel)]="reason.observations" name="name">
+
 <br><br>
     <button class="btn waves-effect waves-light" (click)="save()">Save</button>
-    <button class="btn waves-effect waves-light" (click)="active = !active">Cancel</button>
+    <button class="btn waves-effect waves-light" (click)="cancel()">Cancel</button>
+
+
+
 </div>
+
+<div *ngIf = "showPrescript">
+<br><br>
+<div class = "row">
+    <div class = "col s6">
+        <div class = "row">
+            <div class="input-field col s12">
+            <br>
+                <input id="name" type="text" [(ngModel)]="searchParameter">     
+                <label for="name">
+                Search input
+                </label>
+
+            <br>
+      <button class="btn waves-effect waves-light"  type="submit" name = "action" (click)="search()">
+                 Search
+      </button>
+            </div>
+        </div>
+
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+        <tbody>
+                <tr *ngFor = "let drug of drugs">
+                    <td>{{drug.iddrug}}</td>
+                    <td>{{drug.name}}</td>
+                    <td>{{drug.price}}</td>
+                    <div *ngIf = "!selected[drug.iddrug]">
+                        <td>
+                            <button class="btn waves-effect waves-light"  (click)="select(drug)" >Select</button>
+                        </td>
+                    </div>
+                    <div *ngIf = "selected[drug.iddrug] == true">
+                        <td>
+                            
+                        </td>
+                    </div>
+                </tr>
+        </tbody>
+    </table>
+        <br><br>
+            <button class="btn waves-effect waves-light" (click)="cancel()">Cancel</button>
+        </div>
+    <div class = "col s6">
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let drug of selectedDrugs">
+                    <td>{{drug.iddrug}}</td>
+                    <td>{{drug.name}}</td>
+                    <td>{{drug.price}}</td>
+                </tr>
+            </tbody>
+        </table>
+<br><br>
+    <div class = "row">
+            <div class = "col s3">
+                <button class="btn waves-effect waves-light"  (click)="clear()" >Clear</button>
+            </div>
+            <div class = "col s3">
+                <button class="btn waves-effect waves-light"  (click)="generatePdf()" >Generate prescript</button>
+            </div>
+    </div>        
+    </div>
+    </div>
+</div>
+<br><br>
+</div>
+

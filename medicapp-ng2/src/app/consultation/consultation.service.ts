@@ -57,4 +57,60 @@ export class ConsultationService{
         return this._http.get(this.url + "/patient/" + id)
             .map(res=>res.json())
     }
+
+    getAllDrugs(){
+        return this._http.get("http://localhost:8080/medicapp/drugs/all")
+            .map(res=>res.json())
+    }
+
+    searchDrugs(name){
+        return this._http.get("http://localhost:8080/medicapp/drugs/" + name)
+            .map(res=>res.json())
+    }
+
+    generatePdf(drugs , idstaff , idpatient){
+        return this._http.post("http://localhost:8080/medicapp/drugs/pdf/"+idstaff +"/" + idpatient , JSON.stringify(drugs) , {headers: this.headers})
+            .map(res => res)
+    }
+
+    getPdf(){
+        return this._http.get("http://localhost:8080/medicapp/drugs/pdf/")
+            .map(res =>res)
+    }
+
+    getPatient(id){
+        return this._http.get("http://localhost:8080/medicapp/consultations/patient/cons/" + id)
+            .map(res => res.json())
+    }
+
+    getAllDiseases(){
+        return this._http.get("http://localhost:8080/medicapp/disease/all")
+            .map(res => res.json())
+    }
+
+    getPatientDiseases(id){
+        return this._http.get("http://localhost:8080/medicapp/disease/patient/" + id)
+            .map(res => res.json())
+    }
+
+    addDisease(idpatient , id){
+        return this._http.get("http://localhost:8080/medicapp/disease/add/"+idpatient + "/" + id)
+            .map(res => res)
+    }
+
+    deleteDisease(idpatient , id){
+        return this._http.delete("http://localhost:8080/medicapp/disease/delete/"+idpatient + "/" + id)
+            .map(res => res)
+    }
+
+    addBloodTest(id , btest){
+        console.log(JSON.stringify(btest))
+        return this._http.post("http://localhost:8080/medicapp/btest/new/" + id , JSON.stringify(btest) , {headers: this.headers})
+            .map(res => res)
+    }
+
+    getBloodTest(id){
+        return this._http.get("http://localhost:8080/medicapp/btest/" + id) 
+            .map(res => res.json())
+    }
 }

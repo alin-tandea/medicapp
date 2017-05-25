@@ -68,6 +68,11 @@ public class KnownDisease {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public String toString() {
+		return "KnownDisease [idKnownDisease=" + idKnownDisease + "]";
+	}
 	
 	
 }

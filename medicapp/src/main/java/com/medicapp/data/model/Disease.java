@@ -20,12 +20,13 @@ import com.google.gson.annotations.Expose;
 public class Disease {
 	
 	@Id @GeneratedValue
-	@Column(name = "iddisease")
 	@Expose
+	@Column(name = "iddisease")
 	private int iddisease;
 	
-	@Column(name = "name")
+	
 	@Expose
+	@Column(name = "name")
 	private String name;
 	
 	@Expose(serialize = false)
@@ -77,5 +78,12 @@ public class Disease {
 	}
 
 
+
+	@Override
+	public String toString() {
+		return "Disease [iddisease=" + iddisease + ", name=" + name + "]";
+	}
+
+	
 	
 }

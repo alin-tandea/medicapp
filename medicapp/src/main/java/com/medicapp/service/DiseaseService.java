@@ -17,7 +17,11 @@ public class DiseaseService {
 		Set<KnownDisease> res = d.getPatientDiseases(idpatient);
 		List<Disease> diseases = new ArrayList<Disease>();
 		for(KnownDisease k : res){
-			diseases.add(k.getDisease());
+			Disease disease = new Disease();
+			disease.setIddisease(k.getDisease().getIddisease());
+			disease.setName(k.getDisease().getName());
+			diseases.add(disease);
+
 		}
 		
 		return diseases;
@@ -29,5 +33,9 @@ public class DiseaseService {
 	
 	public static void addDisease(int idpatient , int iddisease){
 		d.addDisease(idpatient, iddisease);
+	}
+	
+	public static void deleteDisease(int idpatient , int iddisease){
+		d.deleteDisease(idpatient, iddisease);
 	}
 }

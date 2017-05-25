@@ -6,4 +6,5 @@ export class Patient{
     cnp : string;
     birthdate : string;
     address : string;
+    bloodtype : string;
 }

@@ -47,6 +47,14 @@ public class ConsultationDAOImpl implements ConsultationDAO {
 
 	}
 
+	public Patient getPatient(int idconsultation){
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Consultation c = (Consultation) session.get(Consultation.class, idconsultation);
+		Patient p = c.getPatient();
+		return p;
+	}
+	
 	@Override
 	public void completeConsultation(int idconsultation, String reason) {
 		Session session = sessionFactory.openSession();

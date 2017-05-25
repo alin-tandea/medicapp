@@ -26,13 +26,14 @@ public class PatientDAOImpl implements PatientDAO{
 
 
 	
-	public void addPatient(String name, String idcardNumber, String cnp, Date birthdate, String address) {
+	public void addPatient(String name, String idcardNumber, String cnp, Date birthdate, String address , String bloodtype) {
 		Session session = sessionFactory.openSession();
 		Transaction tx =  session.beginTransaction();
 		Patient p = new Patient();
 		p.setName(name);
 		p.setIdcardNumber(idcardNumber);
 		p.setCnp(cnp);
+		p.setBloodtype(bloodtype);
 		p.setBirthdate(birthdate);
 		p.setAddress(address);
 		session.save(p);
@@ -42,13 +43,14 @@ public class PatientDAOImpl implements PatientDAO{
 	}
 
 	public void updatePatient(int idpatient, String name, String idcardNumber, String cnp, Date birthdate,
-			String address) {
+			String address , String bloodtype) {
 		Session session = sessionFactory.openSession();
 		Transaction tx =  session.beginTransaction();
 		Patient p = (Patient)session.get(Patient.class, idpatient);
 		p.setName(name);
 		p.setIdcardNumber(idcardNumber);
 		p.setCnp(cnp);
+		p.setBloodtype(bloodtype);
 		p.setBirthdate(birthdate);
 		p.setAddress(address);
 		session.update(p);

@@ -54,6 +54,40 @@
              </div>
         </div>
 
+        <br><br>
+        <h5>Blood Type : </h5>
+        <div class="row">
+            <div class="col s3">
+                <input name="gr" type="radio" id="1" [(ngModel)]="radioButtonValue" [value]="1" [ngModelOptions]="{standalone: true}" [attr.disabled]="active?true:null"/>
+                <label for="1">A</label>
+            </div>
+            <div class="col s3">
+                <input name="gr" type="radio" id="2" [(ngModel)]="radioButtonValue" [value]="2" [ngModelOptions]="{standalone: true}" [attr.disabled]="active?true:null"/>
+                <label for="2">B</label>
+            </div>
+            <div class="col s3">
+                <input name="gr" type="radio" id="4" [(ngModel)]="radioButtonValue" [value]="4" [ngModelOptions]="{standalone: true}" [attr.disabled]="active?true:null"/>
+                <label for="4">AB</label>
+            </div>
+            <div class="col s3">
+                <input name="gr" type="radio" id="0" [(ngModel)]="radioButtonValue" [value]="0" [ngModelOptions]="{standalone: true}" [attr.disabled]="active?true:null"/>
+                <label for="0">O</label>
+            </div>
+        </div> 
+
+        <br><br>
+        <h5>RH factor : </h5>
+        <div class="row">
+            <div class="col s3">
+                <input name="groupRH" type="radio" id="5" [(ngModel)]="radioButtonValueRH" [value]="5" [ngModelOptions]="{standalone: true}" [attr.disabled]="active?true:null"/>
+                <label for="5">positive</label>
+            </div>
+            <div class="col s3">
+                <input name="groupRH" type="radio" id="6" [(ngModel)]="radioButtonValueRH" [value]="6" [ngModelOptions]="{standalone: true}" [attr.disabled]="active?true:null"/>
+                <label for="6">negative</label>
+            </div>
+        <br><br>
+        </div>
         <button class="btn waves-effect waves-light" type="submit"
             [disabled]="!form.valid">
         Submit<i class="material-icons right">send</i>

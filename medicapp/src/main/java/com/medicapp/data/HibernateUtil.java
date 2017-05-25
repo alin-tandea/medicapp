@@ -21,6 +21,7 @@ public class HibernateUtil {
 			configuration.addAnnotatedClass(com.medicapp.data.model.KnownDisease.class);
 			configuration.addAnnotatedClass(com.medicapp.data.model.Drug.class);
 			configuration.addAnnotatedClass(com.medicapp.data.model.Prescription.class);
+			configuration.addAnnotatedClass(com.medicapp.data.model.BloodTest.class);
 			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 					.applySettings(configuration.getProperties()).build();
 

@@ -8,4 +8,5 @@ import com.medicapp.data.model.Drug;
 public interface DrugDAO {
 	List<Drug> getAllDrugsConsultation(int idconsultation);
 	void addDrugOnPrescription(int idconsultation, int iddrug, Date date);
+	List<Drug> getAllDrugs();
 }

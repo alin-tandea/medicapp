@@ -33,7 +33,7 @@ public class PatientService {
 	public static void addPatient(Patient p) {
 		if (validateAddInfo(p)) {
 			Date d = cnpParse(p.getCnp());
-			pd.addPatient(p.getName(), p.getIdcardNumber(), p.getCnp(), d, p.getAddress());
+			pd.addPatient(p.getName(), p.getIdcardNumber(), p.getCnp(), d, p.getAddress() , p.getBloodtype());
 		} else {
 			throw new RuntimeException("Duplicate patient info");
 		}
@@ -42,7 +42,7 @@ public class PatientService {
 	public static void updatePatient(int idpatient, Patient p) {
 		if (validateUpdateInfo(idpatient, p)) {
 			Date d = cnpParse(p.getCnp());
-			pd.updatePatient(idpatient, p.getName(), p.getIdcardNumber(), p.getCnp(), d, p.getAddress());
+			pd.updatePatient(idpatient, p.getName(), p.getIdcardNumber(), p.getCnp(), d, p.getAddress() , p.getBloodtype());
 		} else {
 			throw new RuntimeException("Duplicate patient info");
 		}

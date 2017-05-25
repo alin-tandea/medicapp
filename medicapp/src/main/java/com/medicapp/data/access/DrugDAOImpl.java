@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 
 import com.medicapp.data.HibernateUtil;
 import com.medicapp.data.model.Consultation;
+import com.medicapp.data.model.Disease;
 import com.medicapp.data.model.Drug;
 import com.medicapp.data.model.Prescription;
 
@@ -62,6 +63,18 @@ public class DrugDAOImpl implements DrugDAO{
 		tx.commit();
 		session.close();
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Drug> getAllDrugs() {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		
+		List<Drug> drugs = session.createQuery("select d from Drug d").list();
+		tx.commit();
+		session.close();
+		return drugs;
 	}
 
 }

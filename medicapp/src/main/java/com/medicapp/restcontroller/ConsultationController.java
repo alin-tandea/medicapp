@@ -10,27 +10,34 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.medicapp.data.model.ConsultCompleteWrapper;
+import com.medicapp.data.model.Consultation;
+import com.medicapp.data.model.ConsultationComparator;
 import com.medicapp.data.model.ConsultationWrapper;
+import com.medicapp.data.model.Patient;
 import com.medicapp.service.ConsultationService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Path("consultations")
 public class ConsultationController {
 
 	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-
+	private ConsultationComparator comp = new ConsultationComparator();
 	@SuppressWarnings("deprecation")
 	@GET
 	@Path("/date/current")
 	public Response getTodayConsultation() {
 		Date date = new Date();
+
 		System.out.println(date.getYear() + 1900);
+		
+		List<Consultation> res = ConsultationService.getTodayConsultations(date.getDate(), date.getMonth(), date.getYear());
+		res.sort(comp);
 		return Response.status(200)
-				.entity(gson.toJson(
-						ConsultationService.getTodayConsultations(date.getDate(), date.getMonth(), date.getYear())))
+				.entity(gson.toJson(res))
 				.build();
 	}
 
@@ -44,8 +51,10 @@ public class ConsultationController {
 	@Path("/date/{day}/{month}/{year}")
 	public Response getTodayConsultation(@PathParam("day") int day, @PathParam("month") int month,
 			@PathParam("year") int year) {
+		List<Consultation> res = ConsultationService.getTodayConsultations(day, month, year);
+		res.sort(comp);
 		System.out.println(day + "/" + month + "/" + year);
-		return Response.status(200).entity(gson.toJson(ConsultationService.getTodayConsultations(day, month, year)))
+		return Response.status(200).entity(gson.toJson(res))
 				.build();
 	}
 
@@ -105,5 +114,21 @@ public class ConsultationController {
 			e.printStackTrace();
 			return Response.status(400).build();
 		}
+	}
+	
+	@GET
+	@Path("/patient/cons/{idconsultation}")
+	public Response getPatient(@PathParam("idconsultation") int idconsultation){
+		Patient p = ConsultationService.getPatient(idconsultation);
+		Patient temp = new Patient();
+		temp.setIdpatient(p.getIdpatient());
+		temp.setName(p.getName());
+		temp.setAddress(p.getAddress());
+		temp.setBirthdate(p.getBirthdate());
+		temp.setCnp(p.getCnp());
+		temp.setIdcardNumber(p.getIdcardNumber());
+		temp.setBloodtype(p.getBloodtype());
+		System.out.println(gson.toJson(temp));
+		return Response.status(200).entity(gson.toJson(temp)).build();
 	}
 }

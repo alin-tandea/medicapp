@@ -2,4 +2,21 @@
           required
           [(ngModel)]="obs" name="name">
 
+
+ <button class="btn waves-effect waves-light" (click)="prescript()">New Prescription</button>
+
+<div *ngIf = "show">
+<br><br>
+<table class="highlight">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+
+
+        </tr>
+    </thead>
+</div>
+<br><br>
  <button class="btn waves-effect waves-light" (click)="save()">Save</button>
