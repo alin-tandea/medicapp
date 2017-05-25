@@ -16,6 +16,11 @@ public class HibernateUtil {
 			configuration.addAnnotatedClass(com.medicapp.data.model.Consultation.class);
 			configuration.addAnnotatedClass(com.medicapp.data.model.Staff.class);
 			configuration.addAnnotatedClass(com.medicapp.data.model.WorkSchedule.class);
+			configuration.addAnnotatedClass(com.medicapp.data.model.Insurance.class);
+			configuration.addAnnotatedClass(com.medicapp.data.model.Disease.class);
+			configuration.addAnnotatedClass(com.medicapp.data.model.KnownDisease.class);
+			configuration.addAnnotatedClass(com.medicapp.data.model.Drug.class);
+			configuration.addAnnotatedClass(com.medicapp.data.model.Prescription.class);
 			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 					.applySettings(configuration.getProperties()).build();
 

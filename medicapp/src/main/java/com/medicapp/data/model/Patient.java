@@ -40,14 +40,31 @@ public class Patient {
 	@Expose
 	private String address;
 	
+	@Column(name = "bloodtype")
+	@Expose
+	private String bloodtype;
+	
 	@Expose(serialize = false)
 	@OneToMany(fetch = FetchType.LAZY , mappedBy = "patient")
 	private Set<Consultation> consultations = new HashSet<Consultation>(0);
+	
+	@Expose(serialize = false)
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "patient")
+	private Set<KnownDisease> knownDiseases = new HashSet<KnownDisease>(0);
+
+	@Expose(serialize = false)
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "patient", cascade = CascadeType.ALL)
+	private Insurance insurance;
+	
+
 
 	
-	
+
+
+
+
 	public Patient(int idpatient, String name, String idcardNumber, String cnp, Date birthdate, String address,
-			Set<Consultation> consultations) {
+			String bloodtype, Set<Consultation> consultations, Set<KnownDisease> knownDiseases, Insurance insurance) {
 		super();
 		this.idpatient = idpatient;
 		this.name = name;
@@ -55,13 +72,63 @@ public class Patient {
 		this.cnp = cnp;
 		this.birthdate = birthdate;
 		this.address = address;
+		this.bloodtype = bloodtype;
 		this.consultations = consultations;
+		this.knownDiseases = knownDiseases;
+		this.insurance = insurance;
 	}
+
+
+
+
+
+	public String getBloodtype() {
+		return bloodtype;
+	}
+
+
+
+
+
+	public void setBloodtype(String bloodtype) {
+		this.bloodtype = bloodtype;
+	}
+
+
+
+
+
+	public Set<KnownDisease> getKnownDiseases() {
+		return knownDiseases;
+	}
+
+
+
+
+
+	public void setKnownDiseases(Set<KnownDisease> knownDiseases) {
+		this.knownDiseases = knownDiseases;
+	}
+
+
+
+
 
 	public Patient() {
 		// TODO Auto-generated constructor stub
 	}
 
+
+	
+	
+	
+	public Insurance getInsurance() {
+		return insurance;
+	}
+
+	public void setInsurance(Insurance insurance) {
+		this.insurance = insurance;
+	}
 
 	public Set<Consultation> getConsultations() {
 		return consultations;
