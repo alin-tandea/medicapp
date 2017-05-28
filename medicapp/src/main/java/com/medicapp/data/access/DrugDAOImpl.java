@@ -30,16 +30,16 @@ public class DrugDAOImpl implements DrugDAO{
 		Transaction tx = session.beginTransaction();
 		
 		Consultation c = (Consultation)session.get(Consultation.class, idconsultation);
-		
+		System.out.println(c);
 		Set<Prescription> pres = c.getPrescriptions();
-		
+		System.out.println(pres.iterator().next().getDrug().getName());
 		
 		List<Drug> res = new ArrayList<Drug>();
 		
 		for(Prescription p : pres){
-			res.add(p.getDrug());
+			res.add(new Drug(p.getDrug().getIddrug() , p.getDrug().getName() , p.getDrug().getPrice()));
 		}
-		tx.commit();
+
 		session.close();
 		return res;
 	}

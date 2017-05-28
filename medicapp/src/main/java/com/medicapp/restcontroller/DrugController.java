@@ -34,6 +34,12 @@ public class DrugController {
 		return Response.status(200).entity(gson.toJson(DrugService.searchDrugName(name))).build();
 	}
 	
+	@GET
+	@Path("/consult/{idcons}")
+	public Response getDrugPrescript(@PathParam("idcons") int id){
+		return Response.status(200).entity(gson.toJson(DrugService.getDrugPrescript(id))).build();
+	}
+	
 	@POST
 	@Path("/pdf/{idstaff}/{idconsult}")
 	public Response generatePrescript(@PathParam("idstaff") int idstaff , @PathParam("idconsult") int idconsult , String drugs){

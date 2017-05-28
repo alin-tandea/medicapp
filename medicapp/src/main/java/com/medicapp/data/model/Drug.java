@@ -63,12 +63,11 @@ public class Drug {
 	}
 
 
-	public Drug(int iddrug, String name, String price, Set<Prescription> prescriptions) {
+	public Drug(int iddrug, String name, String price) {
 		super();
 		this.iddrug = iddrug;
 		this.name = name;
 		this.price = price;
-		this.prescriptions = prescriptions;
 	}
 
 	public Set<Prescription> getPrescriptions() {
@@ -82,6 +81,11 @@ public class Drug {
 	public Drug() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "Drug [iddrug=" + iddrug + ", name=" + name + ", price=" + price + "]";
 	}
 	
 	

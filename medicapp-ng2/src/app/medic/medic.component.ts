@@ -37,6 +37,12 @@ export class MedicComponent implements OnInit{
     radioButtonValue :any = 1;
     data_item;
     id;
+        hgb : number;
+    paletets : number;
+    vsh: number;
+    tsh: number;
+    mg: number;
+    fe: number;
     datepicker;
     patient : Patient;
     showDis = false;
@@ -57,26 +63,26 @@ export class MedicComponent implements OnInit{
         private _consultationService : ConsultationService){
 
             this.form = _formBuilder.group({
-                hgb: ['' ,[
+                hgb: [0 ,[
                     Validators.required,
                 ]],
-                paletets: ['' ,[
-                    Validators.required,
-
-                ]],
-                vsh: ['' ,[
+                paletets: [0 ,[
                     Validators.required,
 
                 ]],
-                tsh: ['' ,[
+                vsh: [0 ,[
                     Validators.required,
 
                 ]],
-                mg: ['' ,[
+                tsh: [0 ,[
                     Validators.required,
 
                 ]],
-                fe: ['' ,[
+                mg: [0 ,[
+                    Validators.required,
+
+                ]],
+                fe: [0 ,[
                     Validators.required,
                 ]],
             });
@@ -145,11 +151,10 @@ export class MedicComponent implements OnInit{
          this.showDis = false;
     }
 
-    submitTest(b){
-        console.log(b)
+    submitTest(){
         console.log(this.bloodtest)
         console.log(this.form.value)
-        this._consultationService.addBloodTest(this.consultation.idconsultation , b)
+        this._consultationService.addBloodTest(this.consultation.idconsultation , this.form.value)
             .subscribe((data) => data)
     }
 
@@ -180,6 +185,7 @@ export class MedicComponent implements OnInit{
     }
 
     consult(cons){
+        console.log(cons);
         this._consultationService.getPatient(cons.idconsultation)
             .subscribe((res) => {
                 console.log(res);
@@ -197,7 +203,17 @@ export class MedicComponent implements OnInit{
                             this.showDis = false;
                     })
                 this._consultationService.getBloodTest(cons.idconsultation)
-                    .subscribe(data => this.bloodtest = data)
+                    .subscribe(data => {
+                        this.bloodtest = data
+                        if(this.bloodtest != null){
+                        this.hgb = this.bloodtest.hgb;
+                        this.paletets= this.bloodtest.hgb;
+                        this.vsh= this.bloodtest.hgb;
+                        this.tsh = this.bloodtest.hgb;
+                        this.mg = this.bloodtest.hgb;
+                        this.fe = this.bloodtest.hgb;
+                        }
+                    })
              } );
     }
     clear(){

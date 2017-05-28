@@ -1,0 +1,121 @@
+<div *ngIf = "showTest">
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th>HGB</th>
+                        <th>Paletets</th>
+                        <th>vsh</th>
+                        <th>tsh</th>
+                        <th>mg</th>
+                        <th>fe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{hgb}}</td>
+                        <td>{{paletets}}</td>
+                        <td>{{vsh}}</td>
+                        <td>{{tsh}}</td>
+                        <td>{{mg}}</td>
+                        <td>{{fe}}</td>
+                    </tr>
+                </tbody>
+            </table>
+</div>
+<div *ngIf = "consPage">
+    <br><br>
+    Patient id :   {{patient.idpatient}}
+    <br><br>
+    Name :   {{patient.name}}
+    <br><br>
+    Blood Type :   {{patient.bloodtype}}
+    <br><br>
+     Birthdate :   {{patient.birthdate}}
+    <br><br>
+    <button class="btn waves-effect waves-light" (click)="showTest = !showTest">Blood Test</button>
+    <button class="btn waves-effect waves-light" (click)="prescript()">Prescription</button>
+    <button class="btn waves-effect waves-light" (click)="diseasesShow()">Known Diseases</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div *ngIf = "showDis">
+
+    <div class = "row">
+
+        <div class = "col s6">
+            <h5>Known diseases: </h5>
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Disease Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor = "let disease of patientDiseases">
+                        <td>{{disease.iddisease}}</td>
+                        <td>{{disease.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>     
+<div *ngIf = "active">
+
+    <br><br>
+  
+
+    <br><br>
+    Consult observations : 
+    <br><br>
+   <input type="text"  id="name" required [(ngModel)]="reason.observations" name="name">
+
+<br><br>
+    <button class="btn waves-effect waves-light" (click)="save()">Save</button>
+    <button class="btn waves-effect waves-light" (click)="cancel()">Cancel</button>
+
+
+
+</div>
+
+<div *ngIf = "showPrescript">
+<br><br>
+<div class = "row">
+    
+    <div class = "col s6">
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let drug of selectedDrugs">
+                    <td>{{drug.iddrug}}</td>
+                    <td>{{drug.name}}</td>
+                    <td>{{drug.price}}</td>
+                </tr>
+            </tbody>
+        </table>
+<br><br>
+    
+    </div>
+    </div>
+</div>
+<br><br>
+</div>

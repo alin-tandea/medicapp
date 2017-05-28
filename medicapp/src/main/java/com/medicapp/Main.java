@@ -28,7 +28,6 @@ import com.medicapp.service.WorkScheduleService;
 @SuppressWarnings("unused")
 public class Main {
 
-	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
@@ -63,7 +62,7 @@ public class Main {
 		b.setFe("50");
 		
 		BloodTestService.addBloodTest(36, b);
-		System.out.println(BloodTestService.getTest(36));
+		System.out.println(DrugService.getDrugPrescript(59));
 	
 	}
 

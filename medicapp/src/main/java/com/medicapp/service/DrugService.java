@@ -45,6 +45,10 @@ public class DrugService {
 		return d.getAllDrugs().stream().filter(d -> d.getName().toLowerCase().contains(name)).collect(Collectors.toList());
 	}
 	
+	public static List<Drug> getDrugPrescript(int idcons){
+		return d.getAllDrugsConsultation(idcons);
+	}
+	
 	
 	public static void generatePrescript(List<Drug> drugs , int idstaff , int idconsult){
 		@SuppressWarnings("unused")

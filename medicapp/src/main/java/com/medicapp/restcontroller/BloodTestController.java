@@ -18,9 +18,9 @@ public class BloodTestController {
 	
 	@POST
 	@Path("/new/{idcons}")
-	public Response addBloodTest(@PathParam("idcons") int idcons , String  str){
-		System.out.println(str);
-		BloodTest b = gson.fromJson(str, BloodTest.class);
+	public Response addBloodTest(@PathParam("idcons") int idcons , BloodTest b ){
+		//System.out.println(str);
+		//BloodTest b = gson.fromJson(str, BloodTest.class);
 		BloodTestService.addBloodTest(idcons, b);
 		return Response.status(200).build();
 	}

@@ -50,14 +50,14 @@
 </div>
 <div *ngIf = "showTest">
     <div class = "row">
-    <form materialize class = "col s12" [formGroup] = "form" (ngSubmit)= "submitTest(bloodtest)">
+    <form materialize class = "col s12" [formGroup] = "form" (ngSubmit)= "submitTest()">
         <div class="row">
             <div class="input-field col s12">
                 <input id="hgb" type="number" class="validate"
-                    [(ngModel)]="bloodtest.hgb" formControlName="hgb"
+                    [(ngModel)]="hgb" formControlName="hgb"
                     [class.invalid]="form.controls['hgb'].touched && !form.controls['hgb'].valid">
                 <label for="hgb"
-                [class.active]="bloodtest.hgb"
+                [class.active]="hgb"
                 data-error="Pleas enter the hgb value">
                      HGB
                 </label>
@@ -67,10 +67,10 @@
         <div class="row">
             <div class="input-field col s12">
                 <input id="paletets" type="number" class="validate"
-                    [(ngModel)]="bloodtest.paletets" formControlName="paletets"
+                    [(ngModel)]="paletets" formControlName="paletets"
                     [class.invalid]="form.controls['paletets'].touched && !form.controls['paletets'].valid">
                 <label for="paletets"
-                [class.active]="bloodtest.paletets"
+                [class.active]="paletets"
                 data-error="Pleas enter the paletets value">
                      Paletets
                 </label>
@@ -80,10 +80,10 @@
         <div class="row">
             <div class="input-field col s12">
                 <input id="vsh" type="number" class="validate"
-                    [(ngModel)]="bloodtest.vsh" formControlName="vsh"
+                    [(ngModel)]="vsh" formControlName="vsh"
                     [class.invalid]="form.controls['vsh'].touched && !form.controls['vsh'].valid">
                 <label for="vsh"
-                [class.active]="bloodtest.vsh"
+                [class.active]="vsh"
                 data-error="Pleas enter the vsh value">
                      VSH
                 </label>
@@ -93,10 +93,10 @@
         <div class="row">
             <div class="input-field col s12">
                 <input id="tsh" type="number" class="validate"
-                    [(ngModel)]="bloodtest.tsh" formControlName="tsh"
+                    [(ngModel)]="tsh" formControlName="tsh"
                     [class.invalid]="form.controls['tsh'].touched && !form.controls['tsh'].valid">
                 <label for="tsh"
-                [class.active]="bloodtest.tsh"
+                [class.active]="tsh"
                 data-error="Pleas enter the tsh value">
                      TSH
                 </label>
@@ -106,10 +106,10 @@
         <div class="row">
             <div class="input-field col s12">
                 <input id="mg" type="number" class="validate"
-                    [(ngModel)]="bloodtest.mg" formControlName="mg"
+                    [(ngModel)]="mg" formControlName="mg"
                     [class.invalid]="form.controls['mg'].touched && !form.controls['mg'].valid">
                 <label for="mg"
-                [class.active]="bloodtest.mg"
+                [class.active]="mg"
                 data-error="Pleas enter the mg value">
                      MG
                 </label>
@@ -119,10 +119,10 @@
         <div class="row">
             <div class="input-field col s12">
                 <input id="fe" type="number" class="validate"
-                    [(ngModel)]="bloodtest.fe" formControlName="fe"
+                    [(ngModel)]="fe" formControlName="fe"
                     [class.invalid]="form.controls['fe'].touched && !form.controls['fe'].valid">
                 <label for="fe"
-                [class.active]="bloodtest.fe"
+                [class.active]="fe"
                 data-error="Pleas enter the fe value">
                      FE
                 </label>

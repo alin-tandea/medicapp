@@ -54,6 +54,7 @@
             <th>Time</th>
             <th>Status</th>
             <th>Consult observations</th>
+            <th>Details</th>
         </tr>
     </thead>
 
@@ -74,6 +75,11 @@
             </td>
             <td>
                 {{cons.reason}}
+            </td>
+            <td>
+                 <a [routerLink] = "['/cons/see',cons.idconsultation]"> 
+                    <i class="material-icons">perm_contact_calendar</i>
+                </a> 
             </td>
 
 

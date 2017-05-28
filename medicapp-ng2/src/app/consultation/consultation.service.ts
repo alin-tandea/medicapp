@@ -113,4 +113,9 @@ export class ConsultationService{
         return this._http.get("http://localhost:8080/medicapp/btest/" + id) 
             .map(res => res.json())
     }
+
+    getDrugConsult(id){
+        return this._http.get("http://localhost:8080/medicapp/drugs/consult/" + id)
+            .map(res => res.json())
+    }
 }

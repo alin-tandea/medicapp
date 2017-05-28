@@ -11,6 +11,7 @@ import {MaterializeDirective} from "angular2-materialize";
 import { PatientService } from "../patients/patient.service"
 import { MedicConsult } from "../medic/medic-consult-view.component"
 import { ConsultCompletePage } from "./consult-page"
+import { ConsultInfo } from "./consult-info.component"
 
 @NgModule({
     imports:[
@@ -23,11 +24,13 @@ import { ConsultCompletePage } from "./consult-page"
     declarations: [
             WorkComponent,
             MedicConsult,
+            ConsultInfo,
             ConsultCompletePage
     ],
     exports: [
             WorkComponent,
             MedicConsult,
+            ConsultInfo,
             ConsultCompletePage
     ],
     providers: [

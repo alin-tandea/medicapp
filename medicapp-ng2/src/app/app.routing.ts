@@ -17,6 +17,7 @@ import { SecretaryAuthGuard } from "./home/secretary-auth.guard"
 import { MedicOtherComponent } from "./medic/medic-other.component"
 import { MedicConsult } from "./medic/medic-consult-view.component"
 import { ConsultCompletePage } from "./medic/consult-page"
+import { ConsultInfo } from "./medic/consult-info.component"
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
     { path: 'complete/:idCons' , component : ConsultCompletePage , canActivate: [MedicAuthGuard]},
     { path: 'medic/:idStaff' , component :MedicComponent ,  canActivate: [MedicAuthGuard]},
     { path: 'consults/medic' , component : MedicConsult , canActivate: [MedicAuthGuard]},
+    { path: 'cons/see/:idCons' , component : ConsultInfo , canActivate: [MedicAuthGuard] },
 
     { path: '**', redirectTo: 'login' },
 ];
