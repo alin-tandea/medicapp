@@ -1,62 +1,56 @@
 package com.medicapp.restcontroller;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.medicapp.data.model.WorkSchedule;
 import com.medicapp.service.WorkScheduleService;
 
-@Path("/schedule")
+@RestController
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(value = "/medicapp/schedule")
 public class ScheduleController {
 
-	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-
-	@GET
-	@Path("/medic/{id}")
-	public Response getMedicSchedule(@PathParam("id") int idstaff) {
-		return Response.status(200).entity(gson.toJson(WorkScheduleService.getEntireSchedule(idstaff))).build();
+	@RequestMapping(method = RequestMethod.GET, value = "/medic/{idstaff}")
+	public List<WorkSchedule> getMedicSchedule(@PathVariable int idstaff) {
+		return WorkScheduleService.getEntireSchedule(idstaff);
 	}
 
-	@GET
-	@Path("/{id}")
-	public Response getSchedule(@PathParam("id") int id) {
-		return Response.status(200).entity(gson.toJson(WorkScheduleService.getSchedule(id))).build();
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
+	public WorkSchedule getSchedule(@PathVariable int id) {
+		return WorkScheduleService.getSchedule(id);
 	}
 
-	@GET
-	@Path("/medic/{id}/{day}/{month}/{year}")
-	public Response getMedicScheduleDay(@PathParam("id") int id,@PathParam("day") int day,@PathParam("month")  int month,@PathParam("year") int year){
-		System.out.println(day+"/"+month+"/"+year);
-		return Response.status(200).entity(gson.toJson(WorkScheduleService.getScheduleDay(id, day, month, year))).build();
+	@RequestMapping(method = RequestMethod.GET, value = "/medic/{id}/{day}/{month}/{year}")
+	public WorkSchedule getMedicScheduleDay(@PathVariable int id, @PathVariable int day, @PathVariable int month,
+			@PathVariable int year) {
+		System.out.println(day + "/" + month + "/" + year);
+		return WorkScheduleService.getScheduleDay(id, day, month, year);
 	}
 
-	@PUT
-	@Path("/update")
-	public Response updateSchedule(WorkSchedule w) {
+	@RequestMapping(method = RequestMethod.PUT, value = "/update")
+	public void updateSchedule(@RequestBody WorkSchedule w) {
 		System.out.println(w);
 		try {
 			WorkScheduleService.updateWorkSchedule(w);
-			return Response.status(200).build();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.status(400).build();
+			throw e;
 		}
 	}
 
-	@POST
-	@Path("/new/{id}")
-	public Response addSchedule(@PathParam("id") int idstaff, WorkSchedule w) {
+	@RequestMapping(method = RequestMethod.POST, value = "/new/{id}")
+	public void addSchedule(@PathVariable int idstaff, @RequestBody WorkSchedule w) {
 		try {
 			WorkScheduleService.addWorkSchedule(w, idstaff);
-			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(400).build();
+			throw e;
 		}
 	}
 }

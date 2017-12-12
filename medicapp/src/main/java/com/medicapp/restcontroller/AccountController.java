@@ -1,121 +1,104 @@
 package com.medicapp.restcontroller;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.medicapp.data.model.LogInfo;
 import com.medicapp.data.model.Staff;
 import com.medicapp.service.StaffService;
 
-@Path("/accounts")
+@RestController
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(value = "/medicapp/accounts")
 public class AccountController {
 
-	private Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+	@Autowired
+	StaffService staffService;
 
-	@GET
-	@Path("/all")
-	public Response getAllAccounts() {
-		return Response.status(200).entity(gson.toJson(StaffService.getAllStaff())).build();
+	@RequestMapping(method = RequestMethod.GET, value = "/all")
+	public List<Staff> getAllAccounts() {
+		return staffService.getAllStaff();
 	}
 
-	@GET
-	@Path("/{id}")
-	public Response getAccount(@PathParam("id") int idstaff) {
-		return Response.status(200).entity(gson.toJson(StaffService.getStaff(idstaff))).build();
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
+	public Staff getAccount(@PathVariable int id) {
+		return staffService.getStaff(id);
 	}
 
-	@GET
-	@Path("/search/{username}")
-	public Response searchByUsername(@PathParam("username") String username) {
-		return Response.status(200).entity(gson.toJson(StaffService.searchByUsername(username))).build();
+	@RequestMapping(method = RequestMethod.GET, value = "/search/{username}")
+	public List<Staff> searchByUsername(@PathVariable String username) {
+		return staffService.searchByUsername(username);
 
 	}
 
-	@GET
-	@Path("/searchname/{name}")
-	public Response searchByName(@PathParam("name") String name) {
+	@RequestMapping(method = RequestMethod.GET, value = "/searchname/{name}")
+	public List<Staff> searchByName(@PathVariable String name) {
 		System.out.println(name);
-		return Response.status(200).entity(gson.toJson(StaffService.searchByName(name))).build();
+		return staffService.searchByName(name);
 
 	}
-	
-	@GET
-	@Path("/disable/{id}")
-	public Response disableAccount(@PathParam("id")int idstaff){
-		StaffService.updateRole(idstaff, -1);
-		return Response.ok().build();
-	}
-	
-	@GET
-	@Path("/enable/{id}")
-	public Response enableAccount(@PathParam("id")int idstaff){
-		StaffService.updateRole(idstaff, 1);
-		return Response.ok().build();
+
+	@RequestMapping(method = RequestMethod.GET, value = "/disable/{id}")
+	public void disableAccount(@PathVariable int idstaff) {
+		staffService.updateRole(idstaff, -1);
 	}
 
-	@GET
-	@Path("/login/{credentials}")
-	public Response logIn(@PathParam("credentials") String params) {
-		params = params.replace("\"", "");
-		String[] splitParams = params.split("\\+");
-		System.out.println(splitParams);
-		String username = splitParams[0];
-		String password = splitParams[1];
-		LogInfo info = StaffService.verifyLogIn(username, password);
+	@RequestMapping(method = RequestMethod.GET, value = "/enable/{id}")
+	public void enableAccount(@PathVariable int idstaff) {
+		staffService.updateRole(idstaff, 1);
+
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/login/{username}+{password}")
+	public LogInfo logIn(@PathVariable String username) {
+		// credentials = credentials.replace("\"", "");
+		// System.out.println(credentials);
+		// String[] splitParams = credentials.split("\\+");
+		// System.out.println(splitParams);
+		// String username = splitParams[0];
+		String password = "123456";
+		System.out.println(username + password);
+		LogInfo info = staffService.verifyLogIn(username, password);
 		if (info == null) {
-			return Response.status(403).build();
+			throw new RuntimeException("invalid login");
 		} else {
-			return Response.status(200).entity(gson.toJson(info)).build();
+			return info;
 		}
 	}
 
-	@POST
-	@Path("/new")
-	@Consumes({ MediaType.APPLICATION_JSON })
-	public Response addAccount(Staff s) {
+	@RequestMapping(method = RequestMethod.POST, value = "/new")
+	public void addAccount(@RequestBody Staff s) {
 		try {
-			StaffService.addStaff(s);
-			return Response.ok().build();
+			staffService.addStaff(s);
 		} catch (Exception e) {
-			e.printStackTrace();
-			return Response.status(400).build();
+			throw e;
 		}
 	}
 
-	@PUT
-	@Path("/update/{id}")
-	@Produces({ MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_JSON })
-	public Response updateAccount(@PathParam("id") int idstaff, Staff s) {
+	@RequestMapping(method = RequestMethod.PUT, value = "/update/{id}")
+	public void updateAccount(@PathVariable int id, @RequestBody Staff s) {
 		System.out.println(s);
 		try {
-			StaffService.updateStaff(idstaff, s);
-			return Response.ok().build();
+			staffService.updateStaff(id, s);
 		} catch (Exception e) {
-			return Response.status(400).build();
+			throw e;
 		}
 	}
 
-	@DELETE
-	@Path("/delete/{id}")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response deleteAccount(@PathParam("id") int idstaff) {
+	@RequestMapping(method = RequestMethod.DELETE, value = "/delete/{id}")
+	public void deleteAccount(@PathVariable int id) {
 		try {
-			StaffService.deleteAccount(idstaff);
-			return Response.ok().build();
+			staffService.deleteAccount(id);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.status(400).build();
+			throw e;
 		}
 	}
 

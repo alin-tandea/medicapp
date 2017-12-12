@@ -1,8 +1,5 @@
 package com.medicapp.data.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
 public class PrescriptWrap {
 	private String encodedFile;
 

@@ -4,64 +4,66 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @XmlRootElement
 @Entity
 @Table(name = "consultation")
 public class Consultation {
-	
-	@Id @GeneratedValue
+
+	@Id
+	@GeneratedValue
 	@Column(name = "idconsultation")
-	@Expose
 	private int idconsultation;
-	
+
 	@Column(name = "datestart")
-	@Expose
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date datestart;
-	
+
 	@Column(name = "dateend")
-	@Expose
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateend;
-	
+
 	@Column(name = "reason")
-	@Expose
 	private String reason;
-	
+
 	@Column(name = "status")
-	@Expose
 	private int status;
-	
+
 	@Transient
-	@Expose
 	private String patientName;
-	
-	@ManyToOne(fetch = FetchType.LAZY )
-	@Expose(serialize = false)
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
 	@JoinColumn(name = "patient_idpatient", nullable = false)
 	private Patient patient;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@Expose(serialize = false)
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
 	@JoinColumn(name = "staff_idstaff", nullable = false)
 	private Staff staff;
 
-	
-	@Expose(serialize = false)
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "consultation")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "consultation")
+	@JsonIgnore
 	private Set<Prescription> prescriptions = new HashSet<Prescription>(0);
 
-	@Expose(serialize = false)
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "consultation")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "consultation")
+	@JsonIgnore
 	private Set<BloodTest> tests = new HashSet<BloodTest>(0);
-
-
-	
 
 	public Consultation(int idconsultation, Date datestart, Date dateend, String reason, int status, String patientName,
 			Patient patient, Staff staff, Set<Prescription> prescriptions, Set<BloodTest> tests) {
@@ -167,7 +169,5 @@ public class Consultation {
 		return "Consultation [idconsultation=" + idconsultation + ", datestart=" + datestart + ", dateend=" + dateend
 				+ ", reason=" + reason + ", status=" + status + ", patientName=" + patientName + "]";
 	}
-	
-	
 
 }

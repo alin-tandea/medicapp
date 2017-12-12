@@ -1,79 +1,61 @@
 package com.medicapp.restcontroller;
 
+import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.medicapp.data.model.Patient;
 import com.medicapp.service.PatientService;
 
-@Path("/patients")
+@RestController
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(value = "/medicapp/patients")
 public class PatientController {
-	
-	private Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-	
-	@GET
-	@Path("/all")
-	public Response getPatients(){
-		System.out.println("here");
-		return Response.status(200).entity(gson.toJson(PatientService.getAllPatients())).build();
+
+	@RequestMapping(method = RequestMethod.GET, value = "/all")
+	public List<Patient> getPatients() {
+		return PatientService.getAllPatients();
 	}
-	
-	@GET
-	@Path("/name/{searchParam}")
-	public Response searchByName(@PathParam("searchParam") String name){
-		return Response.status(200).entity(gson.toJson(PatientService.searchPatientByName(name))).build();
+
+	@RequestMapping(method = RequestMethod.GET, value = "/name/{searchParam}")
+	public List<Patient> searchByName(@PathVariable String searchParam) {
+		return PatientService.searchPatientByName(searchParam);
 	}
-	
-	@GET
-	@Path("/cnp/{searchParam}")
-	public Response searchByCnp(@PathParam("searchParam") String name){
-		return Response.status(200).entity(gson.toJson(PatientService.searchPatientByCnp(name))).build();
+
+	@RequestMapping(method = RequestMethod.GET, value = "/cnp/{searchParam}")
+	public List<Patient> searchByCnp(@PathVariable String searchParam) {
+		return PatientService.searchPatientByCnp(searchParam);
 	}
-	
-	@GET
-	@Path("/{id}")
-	public Response getPatient(@PathParam("id") int idpatient){
-		return Response.status(200).entity(gson.toJson(PatientService.getPatient(idpatient))).build();
+
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
+	public Patient getPatient(@PathVariable int id) {
+		return PatientService.getPatient(id);
 	}
-	
-	@POST
-	@Path("/new")
-	@Produces({ MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_JSON })
-	public Response addPatient(Patient p){
+
+	@RequestMapping(method = RequestMethod.POST, value = "/new")
+	public void addPatient(@RequestBody Patient p) {
 		System.out.println(p.toString());
-		try{
+		try {
 			PatientService.addPatient(p);
-			return Response.ok().build();
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.status(400).build();
+			throw e;
 		}
 	}
-	
-	@PUT
-	@Path("/update/{id}")
-	@Consumes({MediaType.APPLICATION_JSON})
-	public Response updatePatient(@PathParam("id") int idpatient , Patient p){
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/update/{id}")
+	public void updatePatient(@PathVariable int id, @RequestBody Patient p) {
 		System.out.println(p.toString());
-		try{
-			PatientService.updatePatient(idpatient, p);
-			return Response.ok().build();
-		}catch(Exception e){
+		try {
+			PatientService.updatePatient(id, p);
+		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.status(400).build();
+			throw e;
 		}
 	}
 }

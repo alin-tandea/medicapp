@@ -22,6 +22,7 @@ export class ConsultationService{
     }
 
     searchMedic(name){
+        console.log("http://localhost:8080/medicapp/accounts" + "/searchname/" + name)
         return this._http.get("http://localhost:8080/medicapp/accounts" + "/searchname/" + name)
             .map(res => res.json())
     }

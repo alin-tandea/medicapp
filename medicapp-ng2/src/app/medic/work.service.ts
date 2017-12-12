@@ -21,6 +21,7 @@ export class WorkService{
     }
 
     getMedicScheduleDay(id , date){
+        console.log(this.url + "/medic/" + id + "/" + date);
         return this._http.get(this.url + "/medic/" + id + "/" + date)
             .map(res =>res.json())
     }

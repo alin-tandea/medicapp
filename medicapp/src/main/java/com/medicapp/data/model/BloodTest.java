@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @XmlRootElement
 @Entity
@@ -18,37 +18,30 @@ import com.google.gson.annotations.Expose;
 public class BloodTest {
 	
 	@Id @GeneratedValue
-	@Expose
 	@Column(name = "idbloodtest")
 	private int idbloodtest;
 	
-	@Expose
 	@Column(name = "hgb")
 	private String hgb;
 	
-	@Expose
 	@Column(name = "paletets")
 	private String paletets;
 	
-	@Expose
 	@Column(name = "vsh")
 	private String vsh;
 	
-	@Expose
 	@Column(name = "tsh")
 	private String tsh;
 	
-	@Expose
 	@Column(name = "mg")
 	private String mg;
-	
-	@Expose
+
 	@Column(name = "fe")
 	private String fe;
 	
-	@ManyToOne(fetch = FetchType.LAZY )
-	@Expose(serialize = false)
+	@ManyToOne(fetch = FetchType.EAGER )
 	@JoinColumn(name = "consultation_idconsultation", nullable = false)
+	@JsonIgnore
 	private Consultation consultation;
 
 	public int getIdbloodtest() {

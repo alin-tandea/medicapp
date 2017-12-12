@@ -1,50 +1,41 @@
 package com.medicapp.restcontroller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.medicapp.data.model.Disease;
 import com.medicapp.service.DiseaseService;
 
-@Path("/disease")
+@RestController
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(value = "/medicapp/disease")
 public class DiseaseController {
-	private Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
-	@GET
-	@Path("/all")
-	public Response getAllDiseases(){
-		return Response.status(200).entity(gson.toJson(DiseaseService.getAllDiseases())).build();
+	@RequestMapping(method = RequestMethod.GET, value = "/all")
+	public List<Disease> getAllDiseases() {
+		return DiseaseService.getAllDiseases();
 	}
-	
-	@GET
-	@Path("/patient/{idpatient}")
-	public Response getDiseasePatient(@PathParam("idpatient") int idpatient){
-		List<Disease> dis =  DiseaseService.getPatientDiseases(idpatient);
-		
-		return Response.status(200).entity(gson.toJson(dis)).build();
+
+	@RequestMapping(method = RequestMethod.GET, value = "/patient/{idpatient}")
+	public List<Disease> getDiseasePatient(@PathVariable int idpatient) {
+		List<Disease> dis = DiseaseService.getPatientDiseases(idpatient);
+
+		return dis;
 	}
-	
-	@GET
-	@Path("/add/{idpatient}/{iddisease}")
-	public Response addDisease(@PathParam("idpatient") int idpatient,@PathParam("iddisease") int iddisease){
+
+	@RequestMapping(method = RequestMethod.GET, value = "/add/{idpatient}/{iddisease}")
+	public void addDisease(@PathVariable int idpatient, @PathVariable int iddisease) {
 		DiseaseService.addDisease(idpatient, iddisease);
-		return Response.status(200).build();
 	}
-	
-	@DELETE
-	@Path("/delete/{idpatient}/{iddisease}")
-	public Response deleteDisease(@PathParam("idpatient") int idpatient,@PathParam("iddisease") int iddisease){
+
+	@RequestMapping(method = RequestMethod.DELETE, value = "/delete/{idpatient}/{iddisease}")
+	public void deleteDisease(@PathVariable int idpatient, @PathVariable int iddisease) {
 		DiseaseService.deleteDisease(idpatient, iddisease);
-		return Response.status(200).build();
 	}
-	
-	
+
 }

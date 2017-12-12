@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -25,50 +27,52 @@ import com.medicapp.data.access.DrugDAO;
 import com.medicapp.data.access.DrugDAOImpl;
 import com.medicapp.data.model.Consultation;
 import com.medicapp.data.model.Drug;
-
 import com.medicapp.data.model.Staff;
 
+@Service
 public class DrugService {
 
-	private static DrugDAO d = new DrugDAOImpl();
-	
-	public static void addDrugOnPrescription(int idconsultation , int iddrug){
+	private DrugDAO d = new DrugDAOImpl();
+
+	@Autowired
+	private StaffService staffService;
+
+	public void addDrugOnPrescription(int idconsultation, int iddrug) {
 		Date date = new Date();
 		d.addDrugOnPrescription(idconsultation, iddrug, date);
 	}
-	
-	public static List<Drug> getAllDrugs(){
+
+	public List<Drug> getAllDrugs() {
 		return d.getAllDrugs();
 	}
-	
-	public static List<Drug> searchDrugName(String name){
-		return d.getAllDrugs().stream().filter(d -> d.getName().toLowerCase().contains(name)).collect(Collectors.toList());
+
+	public List<Drug> searchDrugName(String name) {
+		return d.getAllDrugs().stream().filter(d -> d.getName().toLowerCase().contains(name))
+				.collect(Collectors.toList());
 	}
-	
-	public static List<Drug> getDrugPrescript(int idcons){
+
+	public List<Drug> getDrugPrescript(int idcons) {
 		return d.getAllDrugsConsultation(idcons);
 	}
-	
-	
-	public static void generatePrescript(List<Drug> drugs , int idstaff , int idconsult){
+
+	public void generatePrescript(List<Drug> drugs, int idstaff, int idconsult) {
 		@SuppressWarnings("unused")
-		PdfWriter p ;
+		PdfWriter p;
 		Document document;
-		
+
 		document = new Document(PageSize.A4);
 		com.itextpdf.text.List orderedList = new com.itextpdf.text.List();
-		
-		for(Drug d : drugs){
-			DrugService.addDrugOnPrescription(idconsult, d.getIddrug());
-			ListItem item = new ListItem(d.getName() + " pret : " + d.getPrice() + " lei" );
+
+		for (Drug d : drugs) {
+			addDrugOnPrescription(idconsult, d.getIddrug());
+			ListItem item = new ListItem(d.getName() + " pret : " + d.getPrice() + " lei");
 			item.setAlignment(Element.ALIGN_LEFT);
 			orderedList.add(item);
 		}
-		
-		
+
 		Consultation c = ConsultationService.getConsultation(idconsult);
 		System.out.println(c);
-		Staff staff = StaffService.getStaff(idstaff);
+		Staff staff = staffService.getStaff(idstaff);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		LocalDate localDate = LocalDate.now();
 		String curentDate = dtf.format(localDate);
@@ -79,7 +83,8 @@ public class DrugService {
 			document.add(title);
 			Paragraph info = new Paragraph("Eliberata de : " + staff.getName());
 			Paragraph pacientInfo = new Paragraph("Nume titular : " + c.getPatientName());
-			//Paragraph cnpInfo = new Paragraph("Cod numeric personal : " + patient.getCnp());
+			// Paragraph cnpInfo = new Paragraph("Cod numeric personal : " +
+			// patient.getCnp());
 			Paragraph sub = new Paragraph("Lista medicamentelor prescrise si suma decontata");
 			Paragraph signature = new Paragraph("Semnatura si stampila medicului :");
 			document.add(new Phrase("\n"));
@@ -87,7 +92,7 @@ public class DrugService {
 			document.add(new Phrase("\n"));
 			document.add(pacientInfo);
 			document.add(new Phrase("\n"));
-			//document.add(cnpInfo);
+			// document.add(cnpInfo);
 			document.add(new Phrase("\n"));
 			document.add(new Phrase("\n"));
 			document.add(new Phrase("\n"));
@@ -105,18 +110,18 @@ public class DrugService {
 			document.add(new Phrase("\n"));
 			document.add(signature);
 			document.close();
-			
+
 		} catch (FileNotFoundException | DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
-	
-	public static ByteArrayOutputStream loadPdf(){
-		
+
+	public static ByteArrayOutputStream loadPdf() {
+
 		File file = new File("prescript.pdf");
-		
+
 		FileInputStream fis = null;
 		try {
 			fis = new FileInputStream(file);
@@ -133,9 +138,8 @@ public class DrugService {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-		//file.delete();
+		// file.delete();
 		return bos;
 	}
-	
-	
+
 }

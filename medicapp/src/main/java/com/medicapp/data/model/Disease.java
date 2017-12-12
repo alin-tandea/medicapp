@@ -12,33 +12,29 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @XmlRootElement
 @Entity
 @Table(name = "disease")
 public class Disease {
-	
-	@Id @GeneratedValue
-	@Expose
+
+	@Id
+	@GeneratedValue
 	@Column(name = "iddisease")
 	private int iddisease;
-	
-	
-	@Expose
+
 	@Column(name = "name")
 	private String name;
-	
-	@Expose(serialize = false)
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "disease")
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "disease")
+	@JsonIgnore
 	private Set<KnownDisease> knownDiseases = new HashSet<KnownDisease>(0);
 
 	public Disease() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
 
 	public Disease(int iddisease, String name, Set<KnownDisease> knownDiseases) {
 		super();
@@ -47,19 +43,13 @@ public class Disease {
 		this.knownDiseases = knownDiseases;
 	}
 
-
-
 	public Set<KnownDisease> getKnownDiseases() {
 		return knownDiseases;
 	}
 
-
-
 	public void setKnownDiseases(Set<KnownDisease> knownDiseases) {
 		this.knownDiseases = knownDiseases;
 	}
-
-
 
 	public int getIddisease() {
 		return iddisease;
@@ -77,13 +67,9 @@ public class Disease {
 		this.name = name;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "Disease [iddisease=" + iddisease + ", name=" + name + "]";
 	}
 
-	
-	
 }

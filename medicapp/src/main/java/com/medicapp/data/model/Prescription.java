@@ -12,36 +12,31 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@XmlRootElement
 @Entity
 @Table(name = "prescription")
 public class Prescription {
-	
-	@Id @GeneratedValue
-	@Expose
+
+	@Id
+	@GeneratedValue
 	@Column(name = "idprescription")
 	private int idprescription;
-	
+
 	@Column(name = "date")
-	@Expose
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
-	
 
-	@ManyToOne(fetch = FetchType.LAZY )
-	@Expose(serialize = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
 	@JoinColumn(name = "consultation_idconsultation", nullable = false)
 	private Consultation consultation;
-	
-	@ManyToOne(fetch = FetchType.LAZY )
-	@Expose(serialize = false)
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
 	@JoinColumn(name = "drug_iddrug", nullable = false)
 	private Drug drug;
-	
 
 	public int getIdprescription() {
 		return idprescription;
@@ -67,7 +62,6 @@ public class Prescription {
 		this.consultation = consultation;
 	}
 
-
 	public Drug getDrug() {
 		return drug;
 	}
@@ -89,6 +83,4 @@ public class Prescription {
 		this.drug = drug;
 	}
 
-
-	
 }

@@ -1,64 +1,54 @@
 package com.medicapp.restcontroller;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.medicapp.data.model.Drug;
-import com.medicapp.data.model.PrescriptWrap;
 import com.medicapp.service.DrugService;
 
-@Path("/drugs")
+@RestController
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(value = "/medicapp/drugs")
 public class DrugController {
-	
-	private Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-	
-	@GET
-	@Path("/all")
-	public Response getAllDrugs(){
-		return Response.status(200).entity(gson.toJson(DrugService.getAllDrugs())).build();
-	}
-	
-	@GET
-	@Path("/{name}")
-	public Response searchDrugs(@PathParam("name") String name){
-		return Response.status(200).entity(gson.toJson(DrugService.searchDrugName(name))).build();
-	}
-	
-	@GET
-	@Path("/consult/{idcons}")
-	public Response getDrugPrescript(@PathParam("idcons") int id){
-		return Response.status(200).entity(gson.toJson(DrugService.getDrugPrescript(id))).build();
-	}
-	
-	@POST
-	@Path("/pdf/{idstaff}/{idconsult}")
-	public Response generatePrescript(@PathParam("idstaff") int idstaff , @PathParam("idconsult") int idconsult , String drugs){
 
-		Drug[] drugArray = gson.fromJson(drugs, Drug[].class);
-		
-		List<Drug> d = Arrays.asList(drugArray);
-		DrugService.generatePrescript(d, idstaff, idconsult);
-		return Response.status(200).build();
+	@Autowired
+	private DrugService drugService;
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/all")
+	public List<Drug> getAllDrugs() {
+		return drugService.getAllDrugs();
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/{name}")
+	public List<Drug> searchDrugs(@PathVariable String name) {
+		return drugService.searchDrugName(name);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/consult/{idcons}")
+	public List<Drug> getDrugPrescript(@PathVariable int idcons) {
+		return drugService.getDrugPrescript(idcons);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/pdf/{idstaff}/{idconsult}")
+	public void generatePrescript(@PathVariable int idstaff, @PathVariable int idconsult,
+			@RequestBody List<Drug> drugs) {
+		drugService.generatePrescript(drugs, idstaff, idconsult);
 
 	}
-	
-	@GET
-	@Path("/pdf")
-	public Response getPdf(){
-		ByteArrayOutputStream ba= DrugService.loadPdf();
-		String pdfBase64String = 
-				org.apache.commons.codec.binary.StringUtils.newStringUtf8(org.apache.
-				commons.codec.binary.Base64.encodeBase64(ba.toByteArray()));
-		return Response.status(200).entity(pdfBase64String).build();
+
+	@RequestMapping(method = RequestMethod.GET, value = "/pdf")
+	public String getPdf() {
+		ByteArrayOutputStream ba = DrugService.loadPdf();
+		String pdfBase64String = org.apache.commons.codec.binary.StringUtils
+				.newStringUtf8(org.apache.commons.codec.binary.Base64.encodeBase64(ba.toByteArray()));
+		return pdfBase64String;
 	}
 }

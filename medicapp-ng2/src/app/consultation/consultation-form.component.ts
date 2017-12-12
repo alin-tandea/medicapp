@@ -96,6 +96,9 @@ export class ConsultationFormComponent implements OnInit{
     search(){
         this.searchActivate = true;
         this._consultationService.searchMedic(this.searchParameter)
-            .subscribe(res => this.medics = res)
+            .subscribe(res => {
+                this.medics = res
+                console.log(this.medics)
+            })
     }
 }

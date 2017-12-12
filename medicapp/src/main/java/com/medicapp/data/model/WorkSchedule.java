@@ -8,11 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@XmlRootElement
+
 @Entity
 @Table(name = "workschedule")
 public class WorkSchedule {
@@ -20,24 +19,20 @@ public class WorkSchedule {
 	@Id
 	@GeneratedValue
 	@Column(name = "idworkschedule")
-	@Expose
 	private int idWorkSchedule;
 
 	@Column(name = "workday")
-	@Expose
 	private int workday;
 
 	@Column(name = "starthour")
-	@Expose
 	private int startHour;
 
 	@Column(name = "endhour")
-	@Expose
 	private int endHour;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "staff_idstaff", nullable = false)
-	@Expose(serialize = false)
+	@JsonIgnore
 	private Staff staff;
 
 	public WorkSchedule() {
@@ -96,7 +91,7 @@ public class WorkSchedule {
 	@Override
 	public String toString() {
 		return "WorkSchedule [idWorkSchedule=" + idWorkSchedule + ", workday=" + workday + ", startHour=" + startHour
-				+ ", endHour=" + endHour+ "]";
+				+ ", endHour=" + endHour + "]";
 	}
 
 }

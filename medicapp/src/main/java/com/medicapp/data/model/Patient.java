@@ -4,64 +4,60 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@XmlRootElement
+
 @Entity
 @Table(name = "patient")
 public class Patient {
-	
-	@Id @GeneratedValue
-	@Expose
+
+	@Id
+	@GeneratedValue
 	@Column(name = "idpatient")
 	private int idpatient;
-	
+
 	@Column(name = "name")
-	@Expose
 	private String name;
-	
+
 	@Column(name = "idcardnumber")
-	@Expose
 	private String idcardNumber;
-	
+
 	@Column(name = "cnp")
-	@Expose
 	private String cnp;
-	
+
 	@Column(name = "birthdate")
-	@Expose
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date birthdate;
-	
+
 	@Column(name = "address")
-	@Expose
 	private String address;
-	
+
 	@Column(name = "bloodtype")
-	@Expose
 	private String bloodtype;
-	
-	@Expose(serialize = false)
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "patient")
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "patient", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Consultation> consultations = new HashSet<Consultation>(0);
-	
-	@Expose(serialize = false)
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "patient"  , cascade = CascadeType.ALL)
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "patient", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<KnownDisease> knownDiseases = new HashSet<KnownDisease>(0);
 
-	@Expose(serialize = false)
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "patient", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "patient", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Insurance insurance;
-	
-
-
-	
-
-
-
 
 	public Patient(int idpatient, String name, String idcardNumber, String cnp, Date birthdate, String address,
 			String bloodtype, Set<Consultation> consultations, Set<KnownDisease> knownDiseases, Insurance insurance) {
@@ -78,50 +74,26 @@ public class Patient {
 		this.insurance = insurance;
 	}
 
-
-
-
-
 	public String getBloodtype() {
 		return bloodtype;
 	}
-
-
-
-
 
 	public void setBloodtype(String bloodtype) {
 		this.bloodtype = bloodtype;
 	}
 
-
-
-
-
 	public Set<KnownDisease> getKnownDiseases() {
 		return knownDiseases;
 	}
-
-
-
-
 
 	public void setKnownDiseases(Set<KnownDisease> knownDiseases) {
 		this.knownDiseases = knownDiseases;
 	}
 
-
-
-
-
 	public Patient() {
 		// TODO Auto-generated constructor stub
 	}
 
-
-	
-	
-	
 	public Insurance getInsurance() {
 		return insurance;
 	}
@@ -186,18 +158,10 @@ public class Patient {
 		this.address = address;
 	}
 
-
-
-
-
 	@Override
 	public String toString() {
 		return "Patient [idpatient=" + idpatient + ", name=" + name + ", idcardNumber=" + idcardNumber + ", cnp=" + cnp
 				+ ", birthdate=" + birthdate + ", address=" + address + ", bloodtype=" + bloodtype + "]";
 	}
 
-
-
-	
-	
 }

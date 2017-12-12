@@ -12,36 +12,32 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@XmlRootElement
+
 @Entity
 @Table(name = "insurance")
 public class Insurance {
 
-	@Id @GeneratedValue
+	@Id
+	@GeneratedValue
 	@Column(name = "idinsurance")
-	@Expose
 	private int idinsurance;
-	
+
 	@Column(name = "type")
-	@Expose
 	private String type;
-	
+
 	@Column(name = "datestart")
-	@Expose
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date datestart;
-	
+
 	@Column(name = "dateend")
-	@Expose
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateend;
-	
-	@OneToOne(fetch = FetchType.LAZY)
-	@Expose(serialize = false)
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
 	@PrimaryKeyJoinColumn
 	private Patient patient;
 
@@ -97,8 +93,5 @@ public class Insurance {
 	public Insurance() {
 		super();
 	}
-	
-	
-	
-	
+
 }
